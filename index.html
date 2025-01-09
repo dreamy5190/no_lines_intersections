@@ -52,7 +52,7 @@
         let lineColorIntersect = '#ff1972'; //线相交的颜色
         let lineColorNormal = '#0c86ff';//线不相交的颜色
         let lineAlpha = 0.8;
-        let pointRadius = 8;//点半径
+        let pointRadius = 10;//点半径
         let pointColor = '#3071ff'; //点颜色
         let points = [];
         let lines = [];
@@ -99,7 +99,7 @@
             point.y = y;
             point.interactive = true;
             point.eventMode = 'dynamic'; 
-            point.on('pointerup', onPointClick);
+            point.on('tap', onPointClick);
             // app.stage.addChild(point);
             points.push(point);
             point.zIndex = pointZIndexStart;
