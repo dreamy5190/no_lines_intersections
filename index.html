@@ -31,7 +31,7 @@
             backgroundColor: '#999999',
         })
         document.body.appendChild(app.canvas);
-        
+        app.view.addEventListener('contextmenu', (event) => event.preventDefault());
         // app.stage.interactive = true;
         // let dpr = window.devicePixelRatio
         // let scaleX = window.innerWidth / (app.renderer.width / dpr);
@@ -57,6 +57,7 @@
         let points = [];
         let lines = [];
         let selectedPoints = [];
+        let uiText = {};
 
         let containerUi = new PIXI.Container();
         let mainContainer  = new PIXI.Container();
@@ -86,6 +87,7 @@
             text.y = 32;
             text.anchor.set(0.5);
             containerUi.addChild(text);
+            uiText['gameTitle'] = text;
         }
         
         // 创建点
@@ -96,8 +98,8 @@
             point.x = x;
             point.y = y;
             point.interactive = true;
-            point.buttonMode = true; 
-            point.on('pointerdown', onPointClick);
+            point.eventMode = 'dynamic'; 
+            point.on('pointerup', onPointClick);
             // app.stage.addChild(point);
             points.push(point);
             point.zIndex = pointZIndexStart;
@@ -116,6 +118,7 @@
             lineZIndexStart--;
             pointContainer.addChild(line)
         }
+
         // 点击点时的处理
         function onPointClick() { 
             if(stageComplete){
@@ -313,6 +316,7 @@
                 text.y = app.renderer.height/2;
                 text.anchor.set(0.5);
                 containerUi.addChild(text);
+                uiText['gameComplete'] = text;
                 return;
             }
             stageComplete = false;
@@ -349,6 +353,25 @@
                 }
             }
             randomLines();
+
+            if(uiText['gameLevel']){
+                uiText['gameLevel'].destroy();
+                uiText['gameLevel'] = null;
+            }
+            let text = new PIXI.Text({
+                text : '第' + (stageLevel + 1) + '关', 
+                style : {
+                    fontFamily: 'Microsoft Yahei',
+                    fontSize: 18,
+                    fill: '#fff',
+                    align: 'center'
+                }
+            });
+            text.x = app.renderer.width / 2;
+            text.y = app.renderer.height - 40;
+            text.anchor.set(0.5);
+            containerUi.addChild(text);
+            uiText['gameLevel'] = text;
         }
         function randomLines(){
             // 随机线 随机取两条线，交换起点的位置
@@ -466,6 +489,12 @@
             console.info(params)
             if(params && params.edit_mode){
                 initEditMode(); //用来编辑关卡
+
+                // 添加右键点击事件监听器到整个页面
+                // document.addEventListener('contextmenu', function(event) {
+                //     event.preventDefault();
+                // });
+
             }else{
                 initGame();
             }
