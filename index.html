@@ -32,6 +32,25 @@
         })
         document.body.appendChild(app.canvas);
         
+        await PIXI.Assets.add({
+            alias: 'bg', src: './images/bg.jpg'
+        })
+        const texturesPromise = PIXI.Assets.load(['bg']);
+        texturesPromise.then((textures)=>{
+            const bg = PIXI.Sprite.from(textures.bg);
+            const originalWidth = bg.texture.width;
+            const originalHeight = bg.texture.height;
+            const scale = Math.max(app.renderer.width / originalWidth, app.renderer.height / originalHeight);
+            bg.width = originalWidth * scale;
+            bg.height = originalHeight * scale;
+
+            bg.anchor.set(0.5);
+            bg.x = app.screen.width;
+            bg.y = app.screen.height / 2;
+            bgContainer.addChild(bg);
+        })
+        // const bg = PIXI.Sprite.from('./bg.jpeg');
+        // app.stage.addChild(bg);
         // const gradientFill = new PIXI.FillGradient(0, 0, 100, 100);
         // const colorStops = [0xffffff, 0xff0000, 0x00ff00, 0x0000ff, 0x000000];
         // colorStops.forEach((number, index) =>
@@ -50,7 +69,7 @@
         let linePointsIndexArr = [];//记录线段的点的排列坐标
 
         let stageLevel = 0;//关卡
-        let lineWidth = 4; //线宽度
+        let lineWidth = 2; //线宽度
         let lineColorIntersect = '#ff1972'; //线相交的颜色
         let lineColorNormal = '#0c86ff';//线不相交的颜色
         let lineAlpha = 1;
@@ -61,6 +80,7 @@
         let selectedPoints = [];
         let uiText = {};
 
+        let bgContainer = new PIXI.Container();
         let containerUi = new PIXI.Container();
         let mainContainer  = new PIXI.Container();
         let lineContainer = new PIXI.Container();
@@ -68,9 +88,11 @@
         let pointZIndexStart = 999999;
         let lineZIndexStart = 9999;
 
+        mainContainer.addChild(bgContainer); 
         mainContainer.addChild(lineContainer);
         mainContainer.addChild(pointContainer); 
         mainContainer.addChild(containerUi); 
+        
 
         app.stage.addChild(mainContainer);
 
@@ -81,9 +103,16 @@
                     fontFamily: 'Microsoft Yahei',
                     fontSize: 16,
                     fill: '#fff',
-                    align: 'center'
+                    align: 'center',
+                    dropShadow: true, // 启用阴影
+                    dropShadowColor: '#000000', 
+                    // 阴影颜色 
+                    dropShadowBlur: 2, 
+                    // 阴影模糊度 
+                    dropShadowAngle: Math.PI / 6, 
+                    // 阴影角度 
+                    dropShadowDistance: 2
                 }
-
             });
             text.x = app.renderer.width / 2;
             text.y = 32;
@@ -97,7 +126,11 @@
             let point = new PIXI.Graphics();
             point.circle(0, 0, pointRadius);
             point.fill({ color: pointColor, alpha: 1 });
-            // point.fill(gradientFill)
+
+            // const blurFilter1 = new PIXI.BlurFilter();
+            // blurFilter1.blur = 2;
+            // point.filters = [blurFilter1];
+
             point.x = x;
             point.y = y;
             point.interactive = true;
@@ -113,8 +146,11 @@
         // 创建线
         function createLine(point1, point2) {
             let line = new PIXI.Graphics();
+
             // const blurFilter1 = new PIXI.BlurFilter();
             // blurFilter1.blur = 2;
+            // point.filters = [blurFilter1];
+
             line.moveTo(point1.x, point1.y);
             line.lineTo(point2.x, point2.y);
             line.stroke({ 
@@ -145,7 +181,8 @@
                     }
                     return;
                 }
-            }            
+            }          
+            this.tint = 0xff0000;  
             if (selectedPoints.length < 2) { 
                 selectedPoints.push(this); 
                 this.tint = 0xff0000;
@@ -154,8 +191,7 @@
                         createLine(selectedPoints[0],selectedPoints[1]);
                         selectedPoints = [];
                     }else{
-                        swapPoints(selectedPoints[0], selectedPoints[1]); 
-                        selectedPoints.forEach(i => i.tint = 0xffffff);
+                        swapPoints(selectedPoints[0], selectedPoints[1]);                         
                     }
                 } 
             } 
@@ -207,6 +243,7 @@
                 duration: 0.5,
                 onUpdate: updateLines,
                 onComplete: () => {
+                    selectedPoints.forEach(i => i.tint = 0xffffff);
                     // 动画完成后检查线段是否相交       
                     let intersections = getIntersections();
                     if(intersections.size){
@@ -330,7 +367,15 @@
                         fontFamily: 'Microsoft Yahei',
                         fontSize: 18,
                         fill: '#fff',
-                        align: 'center'
+                        align: 'center',
+                        dropShadow: true, // 启用阴影
+                        dropShadowColor: '#000000', 
+                        // 阴影颜色 
+                        dropShadowBlur: 2, 
+                        // 阴影模糊度 
+                        dropShadowAngle: Math.PI / 6, 
+                        // 阴影角度 
+                        dropShadowDistance: 2
                     }
                 });
                 text.x = app.renderer.width / 2;
@@ -389,7 +434,15 @@
                     fontFamily: 'Microsoft Yahei',
                     fontSize: 18,
                     fill: '#fff',
-                    align: 'center'
+                    align: 'center',
+                    dropShadow: true, // 启用阴影
+                    dropShadowColor: '#000000', 
+                    // 阴影颜色 
+                    dropShadowBlur: 2, 
+                    // 阴影模糊度 
+                    dropShadowAngle: Math.PI / 6, 
+                    // 阴影角度 
+                    dropShadowDistance: 2
                 }
             });
             text.x = app.renderer.width / 2;
