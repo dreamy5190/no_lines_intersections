@@ -28,30 +28,32 @@
         const app = new PIXI.Application();
         await app.init({
             resizeTo: window,
-            backgroundColor: '#999999',
+            backgroundColor: '#000',
         })
         document.body.appendChild(app.canvas);
-        app.view.addEventListener('contextmenu', (event) => event.preventDefault());
-        // app.stage.interactive = true;
-        // let dpr = window.devicePixelRatio
-        // let scaleX = window.innerWidth / (app.renderer.width / dpr);
-        // let scaleY = window.innerHeight / (app.renderer.height / dpr);
-        // let scale = Math.min(scaleX,scaleY);
-        // app.stage.scale.set(scale, scale);
-        // app.renderer.resize(window.innerWidth * dpr, window.innerHeight * dpr);
+        
+        // const gradientFill = new PIXI.FillGradient(0, 0, 100, 100);
+        // const colorStops = [0xffffff, 0xff0000, 0x00ff00, 0x0000ff, 0x000000];
+        // colorStops.forEach((number, index) =>
+        // {
+        //     const ratio = index / colorStops.length;
+        //     gradientFill.addColorStop(ratio, number);
+        // });
+        // const bgTexture = new PIXI.Texture.from('./bg.png');
 
         let stageComplete = false;
         let ww = app.renderer.width;
         let wh = app.renderer.height;
         
         let isEditMode = false;
+        let isViewMode = false;
         let linePointsIndexArr = [];//记录线段的点的排列坐标
 
         let stageLevel = 0;//关卡
-        let lineWidth = 2; //线宽度
+        let lineWidth = 4; //线宽度
         let lineColorIntersect = '#ff1972'; //线相交的颜色
         let lineColorNormal = '#0c86ff';//线不相交的颜色
-        let lineAlpha = 0.8;
+        let lineAlpha = 1;
         let pointRadius = 10;//点半径
         let pointColor = '#3071ff'; //点颜色
         let points = [];
@@ -95,6 +97,7 @@
             let point = new PIXI.Graphics();
             point.circle(0, 0, pointRadius);
             point.fill({ color: pointColor, alpha: 1 });
+            // point.fill(gradientFill)
             point.x = x;
             point.y = y;
             point.interactive = true;
@@ -110,9 +113,18 @@
         // 创建线
         function createLine(point1, point2) {
             let line = new PIXI.Graphics();
+            // const blurFilter1 = new PIXI.BlurFilter();
+            // blurFilter1.blur = 2;
             line.moveTo(point1.x, point1.y);
             line.lineTo(point2.x, point2.y);
-            line.stroke({ width: lineWidth, color: 0x33ff00 ,alpha : lineAlpha });
+            line.stroke({ 
+                width: lineWidth, 
+                color: lineColorNormal ,
+                alpha : lineAlpha,
+                // fill : gradientFill,
+            });
+
+            // line.filters = [blurFilter1];
             lines.push({ line, point1, point2 });
             line.zIndex = lineZIndexStart;
             lineZIndexStart--;
@@ -125,8 +137,12 @@
                 return;
             }
             if(selectedPoints.length){
-                // 点击同一个点时不做处理
+                // 
                 if(this.x == selectedPoints[0].x && this.y == selectedPoints[0].y){
+                    if(!isEditMode){
+                        this.tint = 0xffffff;
+                        selectedPoints = [];
+                    }
                     return;
                 }
             }            
@@ -214,7 +230,12 @@
                 line.line.clear();
                 line.line.moveTo(line.point1.x, line.point1.y);
                 line.line.lineTo(line.point2.x, line.point2.y);
-                line.line.stroke({ width: lineWidth, color: lineColorNormal ,alpha : lineAlpha });
+                line.line.stroke({ 
+                    width: lineWidth, 
+                    color: lineColorNormal ,
+                    alpha : lineAlpha,
+                    // fill : gradientFill,
+                });
             });
             checkIntersections(getIntersections());
         }
@@ -319,6 +340,7 @@
                 uiText['gameComplete'] = text;
                 return;
             }
+            console.info('stageLevel:' + stageLevel)
             stageComplete = false;
             let pointPositionArr = getGridPosition(pointRadius);
             let map = JSON.parse( STAGE_DATA[stageLevel].map );
@@ -352,7 +374,10 @@
                     createLine(point1, point2); 
                 }
             }
-            randomLines();
+            if(!isViewMode){
+                randomLines();
+            }
+            
 
             if(uiText['gameLevel']){
                 uiText['gameLevel'].destroy();
@@ -496,6 +521,12 @@
                 // });
 
             }else{
+                if(params && params.level){
+                    stageLevel = parseInt( params.level );
+                }
+                if(params && params.view_mode){
+                    isViewMode = true;
+                }                
                 initGame();
             }
         }
