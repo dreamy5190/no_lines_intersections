@@ -22,6 +22,8 @@
             margin: 0px;
             padding: 0px;
             vertical-align: bottom;
+            width: 100%;
+            height: 100%;
         }
     </style>
     <script type="module">
@@ -29,7 +31,7 @@
         await app.init({
             resizeTo: window,
             backgroundColor: '#333',
-            // resolution: window.devicePixelRatio || 1,
+            resolution: window.devicePixelRatio || 1,
             antialias: true,
         })
         document.body.appendChild(app.canvas);
