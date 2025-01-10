@@ -715,9 +715,10 @@
                 }
                 initEditMode(); //用来编辑关卡
             }else{
+                // 读取第几关
                 let level = window.localStorage.getItem('level');
                 stageLevel = level ? parseInt(level) : 0;
-                if(params && params.level){
+                if(params && (params.level || params.level == '0')){
                     stageLevel = parseInt( params.level );
                 }
                 if(params && params.view_mode){
