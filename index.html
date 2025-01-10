@@ -6,7 +6,7 @@
     <title>连线游戏</title>
     <script src="./pixi.js"></script>
     <script src="./gsap.min.js"></script>
-    <script src="./stage-data.js?v=2025011005"></script>
+    <script src="./stage-data.js?v=2025011006"></script>
     <script src="./edit-game.js?v=2025011003"></script>
 </head>
 <body>
@@ -80,6 +80,8 @@
         let isEditMode = false;
         let isViewMode = false;
         let linePointsIndexArr = [];//记录线段的点的排列坐标
+
+        let randomCount = 0;//初始化关卡时随机的次数
 
         let stageEditLevel = -1;
         let stageLevel = 0;//关卡
@@ -415,9 +417,8 @@
                 uiText['gameComplete'] = text;
                 return;
             }
-            console.info('stageLevel:' + stageLevel)
             stageComplete = false;
-            console.info(STAGE_DATA[stageLevel].id)
+            console.info( 'stage id :' + STAGE_DATA[stageLevel].id)
             let pointPositionArr = getGridPosition(STAGE_DATA[stageLevel].gridCountH,STAGE_DATA[stageLevel].gridCountV);
             let map = JSON.parse( STAGE_DATA[stageLevel].map );
             let stagePoints = map.points;
@@ -486,6 +487,7 @@
         }
         function randomLines(){
             // 随机线 随机取两条线，交换起点的位置
+            randomCount++;
             let randomIndex = getRandomTwo(lines)
             let tmpX1 = randomIndex[0].point1.x;
             let tmpY1 = randomIndex[0].point1.y;       
@@ -505,10 +507,13 @@
                 }
             }
             let intersectionsCount = STAGE_DATA[stageLevel].intersections;
-            if(!intersections.size || intersections.size < intersectionsCount){
+            let stageRandomCount =  STAGE_DATA[stageLevel]?.randomCount || 1;
+            if(!intersections.size || intersections.size < intersectionsCount || randomCount < stageRandomCount){
                 randomLines();
+            }else{
+                updateLines();
             }
-            updateLines();
+            
         }
 
         function initEditMode(){
@@ -687,11 +692,12 @@
         // 键盘事件处理函数
         function onKeyDown(event) {
             if(isEditMode){
-                if(selectedPoints.length == 1){
-                    deletePointAndLine();
+                if(event.key == 'Delete'){
+                    if(selectedPoints.length == 1){
+                        deletePointAndLine();
+                    }
                 }
             }
-            console.info(event.key == 'Delete')
         }
 
         // 监听键盘按下事件
