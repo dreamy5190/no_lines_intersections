@@ -225,6 +225,15 @@ let STAGE_LEVEL_28 = {
     randomCount : 5,
 }
 
+let STAGE_LEVEL_29 = {
+    id : 29,
+    map : '{"points":[[2,0],[2,12],[15,12],[15,0],[3,1],[3,5],[6,5],[6,4],[5,4],[14,1],[14,5],[11,5],[11,4],[12,4],[4,4],[4,2],[13,2],[13,4],[5,3],[12,3],[6,7],[3,7],[3,11],[14,11],[14,7],[11,7],[11,8],[12,8],[12,9],[13,8],[13,10],[4,10],[4,8],[6,8],[5,8],[5,9]],"lines":[{"point1":[2,0],"point2":[2,12]},{"point1":[2,12],"point2":[15,12]},{"point1":[15,12],"point2":[15,0]},{"point1":[15,0],"point2":[2,0]},{"point1":[3,1],"point2":[3,5]},{"point1":[3,5],"point2":[6,5]},{"point1":[6,5],"point2":[6,4]},{"point1":[6,4],"point2":[5,4]},{"point1":[3,1],"point2":[14,1]},{"point1":[14,1],"point2":[14,5]},{"point1":[14,5],"point2":[11,5]},{"point1":[11,5],"point2":[11,4]},{"point1":[12,4],"point2":[11,4]},{"point1":[4,4],"point2":[4,2]},{"point1":[4,2],"point2":[13,2]},{"point1":[13,2],"point2":[13,4]},{"point1":[5,4],"point2":[5,3]},{"point1":[12,4],"point2":[12,3]},{"point1":[6,7],"point2":[3,7]},{"point1":[3,7],"point2":[3,11]},{"point1":[3,11],"point2":[14,11]},{"point1":[14,11],"point2":[14,7]},{"point1":[14,7],"point2":[11,7]},{"point1":[11,7],"point2":[11,8]},{"point1":[11,8],"point2":[12,8]},{"point1":[12,8],"point2":[12,9]},{"point1":[13,8],"point2":[13,10]},{"point1":[13,10],"point2":[4,10]},{"point1":[4,10],"point2":[4,8]},{"point1":[6,7],"point2":[6,8]},{"point1":[6,8],"point2":[5,8]},{"point1":[5,8],"point2":[5,9]}]}',
+    gridCountH : 13,
+    gridCountV : 19,
+    intersections : 20,
+    randomCount : 5,
+}
+
 let STAGE_DATA = [
     STAGE_LEVEL_1,
     STAGE_LEVEL_2,
@@ -251,4 +260,5 @@ let STAGE_DATA = [
     STAGE_LEVEL_26,
     STAGE_LEVEL_27,
     STAGE_LEVEL_28,
+    STAGE_LEVEL_29,
 ]
