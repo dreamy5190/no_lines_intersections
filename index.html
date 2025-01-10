@@ -6,7 +6,7 @@
     <title>连线游戏</title>
     <script src="./pixi.js"></script>
     <script src="./gsap.min.js"></script>
-    <script src="./stage-data.js?v=2025011003"></script>
+    <script src="./stage-data.js?v=2025011004"></script>
     <script src="./edit-game.js?v=2025011003"></script>
 </head>
 <body>
@@ -219,6 +219,7 @@
                     if(isEditMode){
                         createLine(selectedPoints[0],selectedPoints[1]);
                         selectedPoints = [];
+                        console.info('line count :' + lines.length)
                     }else{
                         swapPoints(selectedPoints[0], selectedPoints[1]);                         
                     }
@@ -416,7 +417,7 @@
             }
             console.info('stageLevel:' + stageLevel)
             stageComplete = false;
-            let pointPositionArr = getGridPosition(pointRadius);
+            let pointPositionArr = getGridPosition(STAGE_DATA[stageLevel].gridCountH,STAGE_DATA[stageLevel].gridCountV);
             let map = JSON.parse( STAGE_DATA[stageLevel].map );
             let stagePoints = map.points;
             let stageLines = map.lines;
@@ -514,12 +515,17 @@
                 编辑模式下，不要生成相同的线或者反方向的线
             */
             isEditMode = true;
-            //生成所有的点
-            let pointArr = getGridPosition(pointRadius);
+            let pointArr = getGridPosition();
+            if(stageEditLevel > -1){
+                pointArr = getGridPosition(STAGE_DATA[stageEditLevel].gridCountH,STAGE_DATA[stageEditLevel].gridCountV);
+            }
+            
+            //生成所有的点            
             for (let index = 0; index < pointArr.length; index++) {
                 const element = pointArr[index];
                 for (let idx = 0; idx < element.length; idx++) {
                     const point = element[idx];
+                    // console.info(point)
                     let row = index;
                     let column = idx;
                     createPoint(point.x,point.y,point.width,point.height)
@@ -529,15 +535,15 @@
             }
             
             if(stageEditLevel > -1){
-                let pointPositionArr = getGridPosition(pointRadius);
+                //let pointPositionArr = getGridPosition(STAGE_DATA[stageLevel].gridCountH,STAGE_DATA[stageLevel].gridCountV);
                 let map = JSON.parse( STAGE_DATA[stageEditLevel].map );
                 let stageLines = map.lines;
                 for (let index = 0; index < stageLines.length; index++) {
                     const element = stageLines[index];
-                    let x1 = pointPositionArr[element.point1[0]][element.point1[1]].x;
-                    let y1 = pointPositionArr[element.point1[0]][element.point1[1]].y;
-                    let x2 = pointPositionArr[element.point2[0]][element.point2[1]].x;
-                    let y2 = pointPositionArr[element.point2[0]][element.point2[1]].y;
+                    let x1 = pointArr[element.point1[0]][element.point1[1]].x;
+                    let y1 = pointArr[element.point1[0]][element.point1[1]].y;
+                    let x2 = pointArr[element.point2[0]][element.point2[1]].x;
+                    let y2 = pointArr[element.point2[0]][element.point2[1]].y;
                     let point1 = null;
                     let point2 = null;
                     //要找到上面创建的点，不然移动的时候会不跟着动
@@ -582,64 +588,42 @@
             text.buttonMode = true; 
             text.on('pointerdown', onConfirmClick);
             containerUi.addChild(text);
-
-            let textDel = new PIXI.Text({
-                text : '删除节点', 
-                style : {
-                    fontFamily: 'Microsoft Yahei',
-                    fontSize: 16,
-                    fill: '#fff',
-                    align: 'center',
-                    dropShadow: true, // 启用阴影
-                    dropShadowColor: '#000000', 
-                    // 阴影颜色 
-                    dropShadowBlur: 2, 
-                    // 阴影模糊度 
-                    dropShadowAngle: Math.PI / 6, 
-                    // 阴影角度 
-                    dropShadowDistance: 2
-                }
-            });
-            textDel.x = app.renderer.width / 2;
-            textDel.y = app.renderer.height - 60;
-            textDel.anchor.set(0.5);
-
-            textDel.interactive = true;
-            textDel.buttonMode = true; 
-            textDel.on('pointerdown', onDelClick);
-            containerUi.addChild(textDel);
         }
 
-        //删除节点
-        function onDelClick(){
+        function deletePointAndLine(){
             if(selectedPoints.length == 1){
                 let point = selectedPoints[0];
+
+                let selectedLineIndexArr = [];
                 let selectedLineIndex1 = -1;
                 let selectedLineIndex2 = -1;
                 for (let index = 0; index < lines.length; index++) {
                     const element = lines[index];
                     if(element.point1.x == point.x && element.point1.y == point.y){
-                        // lines[index].line.clear();
-                        selectedLineIndex1 = index;
+                        // selectedLineIndex1 = index;
+                        selectedLineIndexArr.push(index)
                     }
                     if(element.point2.x == point.x && element.point2.y == point.y){
                         // lines[index].line.clear();
-                        selectedLineIndex2 = index;
+                        // selectedLineIndex2 = index;
+                        selectedLineIndexArr.push(index)
                     }
                 }
-                if(selectedLineIndex1 > -1){
-                    lines[selectedLineIndex1].line.clear();
-                }
-                if(selectedLineIndex2 > -1){
-                    lines[selectedLineIndex2].line.clear();
+                for (let index = 0; index < selectedLineIndexArr.length; index++) {
+                    const element = selectedLineIndexArr[index];
+                    lines[element].line.clear();
                 }
                 let tmpArr = [];
                 for (let index = 0; index < lines.length; index++) {
                     const element = lines[index];
-                    if(index == selectedLineIndex1){
-                        continue;
+                    let isDelete = false;
+                    for (let idx = 0; idx < selectedLineIndexArr.length; idx++) {
+                        const lineIndex = selectedLineIndexArr[idx];                        
+                        if(lineIndex == index){
+                            isDelete = true;
+                        }
                     }
-                    if(index == selectedLineIndex2){
+                    if(isDelete){
                         continue;
                     }
                     tmpArr.push(element)
@@ -647,8 +631,9 @@
                 lines = tmpArr;
                 point.tint = 0xffffff;
                 // point.destroy();
+                selectedPoints = [];
             }
-            selectedPoints = [];
+            
         }
 
         // 点击保存关卡
@@ -696,6 +681,20 @@
             }
             return params;
         }
+
+        // 键盘事件处理函数
+        function onKeyDown(event) {
+            if(isEditMode){
+                if(selectedPoints.length == 1){
+                    deletePointAndLine();
+                }
+            }
+            console.info(event.key == 'Delete')
+        }
+
+        // 监听键盘按下事件
+        window.addEventListener('keydown', onKeyDown);
+
 
         window.onload = function(){
             let params= getUrlParams();
