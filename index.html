@@ -85,10 +85,10 @@
 
         let stageEditLevel = -1;
         let stageLevel = 0;//关卡
-        let lineWidth = 4; //线宽度
+        let lineWidth = 3; //线宽度
         let lineColorIntersect = '#ff0000'; //线相交的颜色
         let lineColorNormal = '#ffd11d';//线不相交的颜色
-        let lineAlpha = 0.5;
+        let lineAlpha = 0.8;
         let pointRadius = 40;//点的大小
         let pointColor = '#3071ff'; //点颜色
         let points = [];
@@ -143,6 +143,7 @@
             let size = Math.max(w,h);
             point.width = size;
             point.height = size;
+            //point.scale.set(4, 4); // 水平和垂直方向均放大2倍
             point.anchor.set(0.5);
             if(texturePoint){
                 point.texture = texturePoint;
