@@ -22,7 +22,7 @@ let STAGE_LEVEL_5 = {
 }
 let STAGE_LEVEL_6 = {
     intersections : 4,
-    map : '{"points":[[6,0],[2,6],[6,11],[13,11],[13,0],[7,8],[7,3],[17,6],[12,8],[12,3]],"lines":[{"point1":[6,0],"point2":[2,6]},{"point1":[2,6],"point2":[6,11]},{"point1":[6,11],"point2":[13,11]},{"point1":[13,0],"point2":[6,0]},{"point1":[7,8],"point2":[7,3]},{"point1":[7,8],"point2":[13,11]},{"point1":[7,3],"point2":[2,6]},{"point1":[17,6],"point2":[13,11]},{"point1":[17,6],"point2":[13,0]},{"point1":[7,8],"point2":[12,8]},{"point1":[12,8],"point2":[12,3]},{"point1":[12,3],"point2":[7,3]},{"point1":[12,3],"point2":[6,0]},{"point1":[12,8],"point2":[17,6]}]}',
+    map : '{"points":[[6,0],[2,6],[6,11],[13,11],[13,0],[7,8],[7,3],[17,6],[12,3],[12,8]],"lines":[{"point1":[6,0],"point2":[2,6]},{"point1":[2,6],"point2":[6,11]},{"point1":[6,11],"point2":[13,11]},{"point1":[13,0],"point2":[6,0]},{"point1":[7,8],"point2":[7,3]},{"point1":[7,8],"point2":[13,11]},{"point1":[7,3],"point2":[2,6]},{"point1":[17,6],"point2":[13,11]},{"point1":[17,6],"point2":[13,0]},{"point1":[12,3],"point2":[7,3]},{"point1":[12,8],"point2":[17,6]},{"point1":[12,3],"point2":[12,8]}]}',
 }
 let STAGE_LEVEL_7 = {
     intersections : 14,
