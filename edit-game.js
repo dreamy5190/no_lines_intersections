@@ -12,8 +12,8 @@ function getGridPosition(pointRadius){
     let stageH = windowHeight * heightPercent;
 
     let points = [];
-    let startX = (windowW - stageW)/2 + pointRadius/2;
-    let startY = (windowH - stageH)/2 + pointRadius/2;
+    let startX = (windowW - stageW)/2;
+    let startY = (windowH - stageH)/2;
     let gridWidth = stageW/(countH - 1);
     let gridHeight = stageH/(countV - 1);
     for (let index = 0; index < countV; index++) {
@@ -24,6 +24,8 @@ function getGridPosition(pointRadius){
             pointsH.push({
                 x,
                 y,
+                width : gridWidth,
+                height : gridHeight,
             })
         }      
         points.push(pointsH)

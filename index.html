@@ -6,8 +6,8 @@
     <title>连线游戏</title>
     <script src="./pixi.js"></script>
     <script src="./gsap.min.js"></script>
-    <script src="./stage-data.js?v=2025010901"></script>
-    <script src="./edit-game.js"></script>
+    <script src="./stage-data.js?v=2025011001"></script>
+    <script src="./edit-game.js?v=2025011001"></script>
 </head>
 <body>
     <style>
@@ -22,8 +22,8 @@
             margin: 0px;
             padding: 0px;
             vertical-align: bottom;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
         }
     </style>
     <script type="module">
@@ -81,6 +81,7 @@
         let isViewMode = false;
         let linePointsIndexArr = [];//记录线段的点的排列坐标
 
+        let stageEditLevel = -1;
         let stageLevel = 0;//关卡
         let lineWidth = 2; //线宽度
         let lineColorIntersect = '#ff1972'; //线相交的颜色
@@ -135,10 +136,11 @@
         }
         
         // 创建点
-        function createPoint(x, y) {
+        function createPoint(x, y,w,h) {
             let point = new PIXI.Sprite();
-            point.width = pointRadius;
-            point.height = pointRadius;
+            let size = Math.max(w,h);
+            point.width = size;
+            point.height = size;
             point.anchor.set(0.5);
             if(texturePoint){
                 point.texture = texturePoint;
@@ -174,10 +176,10 @@
             line.moveTo(point1.x, point1.y);
             line.lineTo(point2.x, point2.y);
             // 创建多个模糊的线条并叠加
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 1; i++) {
                 const blurLine = line.clone();
                 blurLine.filters = [new PIXI.BlurFilter(i * 2)];
-                blurLine.alpha = 0.5;
+                blurLine.alpha = 1;
                 lineContainer.addChild(blurLine);
             }
             line.stroke({ 
@@ -422,7 +424,9 @@
                 const element = stagePoints[index];
                 let x = pointPositionArr[element[0]][element[1]].x;
                 let y = pointPositionArr[element[0]][element[1]].y;
-                createPoint(x,y); 
+                let w = pointPositionArr[element[0]][element[1]].width;
+                let h = pointPositionArr[element[0]][element[1]].height;
+                createPoint(x,y,w,h); 
             }
 
             for (let index = 0; index < stageLines.length; index++) {
@@ -518,9 +522,38 @@
                     const point = element[idx];
                     let row = index;
                     let column = idx;
-                    createPoint(point.x,point.y)
+                    createPoint(point.x,point.y,point.width,point.height)
                     points[points.length - 1].row = row;
-                    points[points.length - 1].column = column;
+                    points[points.length - 1].column = column;                    
+                }
+            }
+            
+            if(stageEditLevel > -1){
+                let pointPositionArr = getGridPosition(pointRadius);
+                let map = JSON.parse( STAGE_DATA[stageEditLevel].map );
+                let stageLines = map.lines;
+                for (let index = 0; index < stageLines.length; index++) {
+                    const element = stageLines[index];
+                    let x1 = pointPositionArr[element.point1[0]][element.point1[1]].x;
+                    let y1 = pointPositionArr[element.point1[0]][element.point1[1]].y;
+                    let x2 = pointPositionArr[element.point2[0]][element.point2[1]].x;
+                    let y2 = pointPositionArr[element.point2[0]][element.point2[1]].y;
+                    let point1 = null;
+                    let point2 = null;
+                    //要找到上面创建的点，不然移动的时候会不跟着动
+                    points.map((item)=>{
+                        if(item.x == x1 && item.y == y1){
+                            point1 = item;
+                        }
+                        if(item.x == x2 && item.y == y2){
+                            point2 = item;
+                        }
+                    })
+                    if(point1 && point2){
+                        point1.tint = 0xff0000;
+                        point2.tint = 0xff0000;
+                        createLine(point1, point2); 
+                    }
                 }
             }
 
@@ -530,7 +563,15 @@
                     fontFamily: 'Microsoft Yahei',
                     fontSize: 16,
                     fill: '#fff',
-                    align: 'center'
+                    align: 'center',
+                    dropShadow: true, // 启用阴影
+                    dropShadowColor: '#000000', 
+                    // 阴影颜色 
+                    dropShadowBlur: 2, 
+                    // 阴影模糊度 
+                    dropShadowAngle: Math.PI / 6, 
+                    // 阴影角度 
+                    dropShadowDistance: 2
                 }
             });
             text.x = app.renderer.width / 2;
@@ -541,6 +582,73 @@
             text.buttonMode = true; 
             text.on('pointerdown', onConfirmClick);
             containerUi.addChild(text);
+
+            let textDel = new PIXI.Text({
+                text : '删除节点', 
+                style : {
+                    fontFamily: 'Microsoft Yahei',
+                    fontSize: 16,
+                    fill: '#fff',
+                    align: 'center',
+                    dropShadow: true, // 启用阴影
+                    dropShadowColor: '#000000', 
+                    // 阴影颜色 
+                    dropShadowBlur: 2, 
+                    // 阴影模糊度 
+                    dropShadowAngle: Math.PI / 6, 
+                    // 阴影角度 
+                    dropShadowDistance: 2
+                }
+            });
+            textDel.x = app.renderer.width / 2;
+            textDel.y = app.renderer.height - 60;
+            textDel.anchor.set(0.5);
+
+            textDel.interactive = true;
+            textDel.buttonMode = true; 
+            textDel.on('pointerdown', onDelClick);
+            containerUi.addChild(textDel);
+        }
+
+        //删除节点
+        function onDelClick(){
+            if(selectedPoints.length == 1){
+                let point = selectedPoints[0];
+                let selectedLineIndex1 = -1;
+                let selectedLineIndex2 = -1;
+                for (let index = 0; index < lines.length; index++) {
+                    const element = lines[index];
+                    if(element.point1.x == point.x && element.point1.y == point.y){
+                        // lines[index].line.clear();
+                        selectedLineIndex1 = index;
+                    }
+                    if(element.point2.x == point.x && element.point2.y == point.y){
+                        // lines[index].line.clear();
+                        selectedLineIndex2 = index;
+                    }
+                }
+                if(selectedLineIndex1 > -1){
+                    lines[selectedLineIndex1].line.clear();
+                }
+                if(selectedLineIndex2 > -1){
+                    lines[selectedLineIndex2].line.clear();
+                }
+                let tmpArr = [];
+                for (let index = 0; index < lines.length; index++) {
+                    const element = lines[index];
+                    if(index == selectedLineIndex1){
+                        continue;
+                    }
+                    if(index == selectedLineIndex2){
+                        continue;
+                    }
+                    tmpArr.push(element)
+                }
+                lines = tmpArr;
+                point.tint = 0xffffff;
+                // point.destroy();
+            }
+            selectedPoints = [];
         }
 
         // 点击保存关卡
@@ -593,6 +701,9 @@
             let params= getUrlParams();
             console.info(params)
             if(params && params.edit_mode){
+                if(params && params.level){
+                    stageEditLevel = parseInt( params.level );
+                }
                 initEditMode(); //用来编辑关卡
 
                 // 添加右键点击事件监听器到整个页面
@@ -610,20 +721,6 @@
                 initGame();
             }
         }
-        
-        // let centerX = ww/2;
-        // let centerY = wh/2;
-        // createPoint(centerX - 50,centerY - 50); 
-        // createPoint(centerX + 50,centerY - 50); 
-        // createPoint(centerX + 50,centerY + 50); 
-        // createPoint(centerX - 50,centerY + 50); 
-
-        // createLine(points[0], points[1]); 
-        // createLine(points[1], points[2]); 
-        // createLine(points[2], points[3]); 
-        // createLine(points[3], points[0]); 
-        // checkIntersections();
-        // randomLine();
     </script>
 </body>
 </html>
