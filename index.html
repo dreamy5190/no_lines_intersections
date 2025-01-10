@@ -6,7 +6,7 @@
     <title>连线游戏</title>
     <script src="./pixi.js"></script>
     <script src="./gsap.min.js"></script>
-    <script src="./stage-data.js?v=2025011004"></script>
+    <script src="./stage-data.js?v=2025011005"></script>
     <script src="./edit-game.js?v=2025011003"></script>
 </head>
 <body>
@@ -284,7 +284,7 @@
                             // 游戏完成
                             stageLevel++;
                             initGame();
-                        },1000)
+                        },2000)
 
                     }
                     selectedPoints = [];
@@ -417,6 +417,7 @@
             }
             console.info('stageLevel:' + stageLevel)
             stageComplete = false;
+            console.info(STAGE_DATA[stageLevel].id)
             let pointPositionArr = getGridPosition(STAGE_DATA[stageLevel].gridCountH,STAGE_DATA[stageLevel].gridCountV);
             let map = JSON.parse( STAGE_DATA[stageLevel].map );
             let stagePoints = map.points;
