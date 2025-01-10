@@ -88,7 +88,7 @@
         let lineWidth = 2; //线宽度
         let lineColorIntersect = '#ff0000'; //线相交的颜色
         let lineColorNormal = '#ffd11d';//线不相交的颜色
-        let lineAlpha = 0.8;
+        let lineAlpha = 0.5;
         let pointRadius = 40;//点的大小
         let pointColor = '#3071ff'; //点颜色
         let points = [];
@@ -178,7 +178,7 @@
             line.moveTo(point1.x, point1.y);
             line.lineTo(point2.x, point2.y);
             // 创建多个模糊的线条并叠加
-            for (let i = 0; i < 1; i++) {
+            for (let i = 0; i < 2; i++) {
                 const blurLine = line.clone();
                 blurLine.filters = [new PIXI.BlurFilter(i * 3)];
                 blurLine.alpha = 1;
@@ -252,7 +252,7 @@
                 if (intersections.has(line)) {
                     line.line.stroke({ width: lineWidth, color: lineColorIntersect ,alpha : lineAlpha });
                 } else {
-                    line.line.stroke({ width: lineWidth, color: lineColorNormal ,alpha : lineAlpha });
+                    line.line.stroke({ width: lineWidth, color: lineColorNormal ,alpha : 1 });
                 }
             });
         }
@@ -385,6 +385,8 @@
                     lines[index].line.clear();
                 })
             }
+            lineContainer.removeChildren();
+            pointContainer.removeChildren();
             points = [];
             lines = [];
         }
