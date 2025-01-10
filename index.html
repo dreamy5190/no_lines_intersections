@@ -29,6 +29,8 @@
         await app.init({
             resizeTo: window,
             backgroundColor: '#333',
+            // resolution: window.devicePixelRatio || 1,
+            antialias: true,
         })
         document.body.appendChild(app.canvas);
         
