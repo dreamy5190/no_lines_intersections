@@ -178,7 +178,7 @@
             line.moveTo(point1.x, point1.y);
             line.lineTo(point2.x, point2.y);
             // 创建多个模糊的线条并叠加
-            for (let i = 0; i < 1; i++) {
+            for (let i = 0; i < 3; i++) {
                 const blurLine = line.clone();
                 blurLine.filters = [new PIXI.BlurFilter(i * 2)];
                 blurLine.alpha = 1;
