@@ -216,6 +216,15 @@ let STAGE_LEVEL_27 = {
     map : '{"points":[[4,2],[4,4],[5,1],[5,5],[9,1],[7,3],[8,4],[4,7],[4,9],[5,6],[5,10],[7,10],[7,6],[8,5],[11,5],[14,5],[8,11],[8,8],[11,11],[11,8],[14,8],[14,11],[14,3]],"lines":[{"point1":[4,2],"point2":[4,4]},{"point1":[5,1],"point2":[5,5]},{"point1":[9,1],"point2":[7,3]},{"point1":[7,3],"point2":[5,5]},{"point1":[7,3],"point2":[8,4]},{"point1":[4,7],"point2":[4,9]},{"point1":[5,6],"point2":[5,10]},{"point1":[5,10],"point2":[7,10]},{"point1":[7,10],"point2":[7,6]},{"point1":[7,6],"point2":[5,6]},{"point1":[8,5],"point2":[11,5]},{"point1":[11,5],"point2":[14,5]},{"point1":[8,11],"point2":[8,8]},{"point1":[8,11],"point2":[11,11]},{"point1":[8,8],"point2":[8,5]},{"point1":[11,8],"point2":[8,8]},{"point1":[11,8],"point2":[11,5]},{"point1":[14,8],"point2":[14,11]},{"point1":[14,8],"point2":[11,8]},{"point1":[11,8],"point2":[11,11]},{"point1":[14,5],"point2":[14,8]},{"point1":[14,3],"point2":[7,3]},{"point1":[11,11],"point2":[14,11]}]}',
 }
 
+let STAGE_LEVEL_28 = {
+    id : 28,
+    map : '{"points":[[5,2],[4,4],[4,8],[5,10],[6,5],[6,7],[10,3],[9,4],[9,8],[10,9],[7,3],[9,10],[7,9],[6,3],[5,7],[5,5],[6,9],[7,0],[7,12],[9,2]],"lines":[{"point1":[5,2],"point2":[4,4]},{"point1":[4,4],"point2":[4,8]},{"point1":[4,8],"point2":[5,10]},{"point1":[6,5],"point2":[6,7]},{"point1":[10,3],"point2":[9,4]},{"point1":[9,4],"point2":[9,8]},{"point1":[9,8],"point2":[10,9]},{"point1":[7,3],"point2":[6,5]},{"point1":[9,10],"point2":[10,9]},{"point1":[9,10],"point2":[7,9]},{"point1":[7,9],"point2":[6,7]},{"point1":[5,2],"point2":[6,3]},{"point1":[5,2],"point2":[6,3]},{"point1":[7,3],"point2":[6,3]},{"point1":[5,7],"point2":[4,8]},{"point1":[5,7],"point2":[6,7]},{"point1":[6,3],"point2":[5,5]},{"point1":[5,5],"point2":[4,4]},{"point1":[5,5],"point2":[6,5]},{"point1":[5,5],"point2":[5,7]},{"point1":[6,9],"point2":[5,7]},{"point1":[6,9],"point2":[5,10]},{"point1":[6,9],"point2":[7,9]},{"point1":[7,0],"point2":[5,2]},{"point1":[5,10],"point2":[7,12]},{"point1":[7,12],"point2":[9,10]},{"point1":[9,2],"point2":[7,3]},{"point1":[9,2],"point2":[7,0]},{"point1":[9,2],"point2":[10,3]}]}',
+    gridCountH : 13,
+    gridCountV : 19,
+    intersections : 20,
+    randomCount : 5,
+}
+
 let STAGE_DATA = [
     STAGE_LEVEL_1,
     STAGE_LEVEL_2,
@@ -241,4 +250,5 @@ let STAGE_DATA = [
     STAGE_LEVEL_24,
     STAGE_LEVEL_26,
     STAGE_LEVEL_27,
+    STAGE_LEVEL_28,
 ]
