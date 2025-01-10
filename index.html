@@ -178,12 +178,12 @@
             line.moveTo(point1.x, point1.y);
             line.lineTo(point2.x, point2.y);
             // 创建多个模糊的线条并叠加
-            for (let i = 0; i < 2; i++) {
-                const blurLine = line.clone();
-                blurLine.filters = [new PIXI.BlurFilter(i * 3)];
-                blurLine.alpha = 1;
-                lineContainer.addChild(blurLine);
-            }
+            // for (let i = 0; i < 2; i++) {
+            //     const blurLine = line.clone();
+            //     blurLine.filters = [new PIXI.BlurFilter(i * 3)];
+            //     blurLine.alpha = 1;
+            //     lineContainer.addChild(blurLine);
+            // }
             line.stroke({ 
                 width: lineWidth, 
                 color: lineColorNormal ,
@@ -391,15 +391,30 @@
             lines = [];
         }
 
+        function onRestarClick(){
+            console.info(containerUi)
+            // containerUi.removeChildren();
+
+            let child1 = containerUi.getChildByName("ui-complete");
+            let child2 = containerUi.getChildByName("ui-restart");
+            containerUi.removeChild(child1);
+            containerUi.removeChild(child2);
+
+            resetGame();
+            stageLevel = 0;
+            initGame();
+        }
+
         function initGame(){
             resetGame();
             if(stageLevel >= STAGE_DATA.length){
                 // 游戏通关
                 let text = new PIXI.Text({
-                    text : '游戏通关了', 
+                    text : '恭喜你，游戏通关了!', 
                     style : {
                         fontFamily: 'Microsoft Yahei',
-                        fontSize: 18,
+                        fontSize: 24,
+                        fontWeight : 'bold',
                         fill: '#fff',
                         align: 'center',
                         dropShadow: true, // 启用阴影
@@ -414,9 +429,44 @@
                 });
                 text.x = app.renderer.width / 2;
                 text.y = app.renderer.height/2;
+                text.name = 'ui-complete'
                 text.anchor.set(0.5);
                 containerUi.addChild(text);
                 uiText['gameComplete'] = text;
+
+                
+                let textRestart = new PIXI.Text({
+                    text : '重新开始', 
+                    style : {
+                        fontFamily: 'Microsoft Yahei',
+                        fontSize: 14,
+                        fill: '#fff',
+                        align: 'center',
+                        dropShadow: true, // 启用阴影
+                        dropShadowColor: '#000000', 
+                        // 阴影颜色 
+                        dropShadowBlur: 2, 
+                        // 阴影模糊度 
+                        dropShadowAngle: Math.PI / 6, 
+                        // 阴影角度 
+                        dropShadowDistance: 2
+                    }
+                });
+                textRestart.name = 'ui-restart'
+                textRestart.x = app.renderer.width / 2;
+                textRestart.y = app.renderer.height/2 + 60;
+                textRestart.anchor.set(0.5);
+                containerUi.addChild(textRestart);
+
+                containerUi.interactive = true;
+                containerUi.buttonMode = true; 
+                containerUi.on('pointerdown', onRestarClick);
+
+                uiText['gameComplete'] = textRestart;
+
+
+ 
+
                 return;
             }
             stageComplete = false;
