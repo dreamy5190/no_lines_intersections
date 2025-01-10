@@ -484,6 +484,8 @@
             text.anchor.set(0.5);
             containerUi.addChild(text);
             uiText['gameLevel'] = text;
+
+            window.localStorage.setItem('level',stageLevel);
         }
         function randomLines(){
             // 随机线 随机取两条线，交换起点的位置
@@ -712,13 +714,9 @@
                     stageEditLevel = parseInt( params.level );
                 }
                 initEditMode(); //用来编辑关卡
-
-                // 添加右键点击事件监听器到整个页面
-                // document.addEventListener('contextmenu', function(event) {
-                //     event.preventDefault();
-                // });
-
             }else{
+                let level = window.localStorage.getItem('level');
+                stageLevel = level ? parseInt(level) : 0;
                 if(params && params.level){
                     stageLevel = parseInt( params.level );
                 }
