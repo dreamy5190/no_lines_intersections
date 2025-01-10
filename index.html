@@ -38,7 +38,7 @@
         
         // 设置背景
         let texturePoint = null;
-        const texturePointPromise = PIXI.Assets.load('./images/point.png?v=2');
+        const texturePointPromise = PIXI.Assets.load('./images/point.png?v=3');
         const textureBgPromise = PIXI.Assets.load('./images/bg.jpg?v=2');
         textureBgPromise.then((textures)=>{
             const bg = PIXI.Sprite.from(textures);
@@ -479,7 +479,7 @@
                 }
             });
             text.x = app.renderer.width / 2;
-            text.y = 40;
+            text.y = 32;
             text.anchor.set(0.5);
             containerUi.addChild(text);
             uiText['gameLevel'] = text;
@@ -519,6 +519,7 @@
             let pointArr = getGridPosition();
             if(stageEditLevel > -1){
                 pointArr = getGridPosition(STAGE_DATA[stageEditLevel].gridCountH,STAGE_DATA[stageEditLevel].gridCountV);
+                console.info('level id:' + STAGE_DATA[stageEditLevel].id);
             }
             
             //生成所有的点            
@@ -582,7 +583,7 @@
                 }
             });
             text.x = app.renderer.width / 2;
-            text.y = app.renderer.height - 30;
+            text.y = app.renderer.height - 52;
             text.anchor.set(0.5);
 
             text.interactive = true;
