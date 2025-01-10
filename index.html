@@ -32,12 +32,12 @@
         })
         document.body.appendChild(app.canvas);
         
-        await PIXI.Assets.add({
-            alias: 'bg', src: './images/bg.jpg'
-        })
-        const texturesPromise = PIXI.Assets.load(['bg']);
-        texturesPromise.then((textures)=>{
-            const bg = PIXI.Sprite.from(textures.bg);
+        // 设置背景
+        let texturePoint = null;
+        const texturePointPromise = PIXI.Assets.load('./images/point.png');
+        const textureBgPromise = PIXI.Assets.load('./images/bg.jpg');
+        textureBgPromise.then((textures)=>{
+            const bg = PIXI.Sprite.from(textures);
             const originalWidth = bg.texture.width;
             const originalHeight = bg.texture.height;
             const scale = Math.max(app.renderer.width / originalWidth, app.renderer.height / originalHeight);
@@ -48,6 +48,15 @@
             bg.x = app.screen.width;
             bg.y = app.screen.height / 2;
             bgContainer.addChild(bg);
+        })
+        texturePointPromise.then((textures)=>{
+            texturePoint = textures;
+            if(points.length){
+                // points[0].texture = textures;
+                points.forEach((point,index)=>{
+                    points[index].texture = textures;
+                })
+            }
         })
         // const bg = PIXI.Sprite.from('./bg.jpeg');
         // app.stage.addChild(bg);
@@ -73,7 +82,7 @@
         let lineColorIntersect = '#ff1972'; //线相交的颜色
         let lineColorNormal = '#0c86ff';//线不相交的颜色
         let lineAlpha = 1;
-        let pointRadius = 10;//点半径
+        let pointRadius = 40;//点的大小
         let pointColor = '#3071ff'; //点颜色
         let points = [];
         let lines = [];
@@ -123,9 +132,16 @@
         
         // 创建点
         function createPoint(x, y) {
-            let point = new PIXI.Graphics();
-            point.circle(0, 0, pointRadius);
-            point.fill({ color: pointColor, alpha: 1 });
+            let point = new PIXI.Sprite();
+            point.width = pointRadius;
+            point.height = pointRadius;
+            point.anchor.set(0.5);
+            if(texturePoint){
+                point.texture = texturePoint;
+            }
+            // let point = new PIXI.Graphics();
+            // point.circle(0, 0, pointRadius);
+            // point.fill({ color: pointColor, alpha: 1 });
 
             // const blurFilter1 = new PIXI.BlurFilter();
             // blurFilter1.blur = 2;
@@ -153,6 +169,13 @@
 
             line.moveTo(point1.x, point1.y);
             line.lineTo(point2.x, point2.y);
+            // 创建多个模糊的线条并叠加
+            for (let i = 0; i < 3; i++) {
+                const blurLine = line.clone();
+                blurLine.filters = [new PIXI.BlurFilter(i * 2)];
+                blurLine.alpha = 0.5;
+                lineContainer.addChild(blurLine);
+            }
             line.stroke({ 
                 width: lineWidth, 
                 color: lineColorNormal ,
@@ -345,7 +368,7 @@
         function resetGame(){
             if(points.length){
                 points.map((item,index)=>{
-                    points[index].clear();
+                    points[index].destroy();
                 })
             }
             if(lines.length){
