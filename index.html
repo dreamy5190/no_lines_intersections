@@ -38,8 +38,8 @@
         
         // 设置背景
         let texturePoint = null;
-        const texturePointPromise = PIXI.Assets.load('./images/point.png');
-        const textureBgPromise = PIXI.Assets.load('./images/bg.jpg');
+        const texturePointPromise = PIXI.Assets.load('./images/point.png?v=2');
+        const textureBgPromise = PIXI.Assets.load('./images/bg.jpg?v=2');
         textureBgPromise.then((textures)=>{
             const bg = PIXI.Sprite.from(textures);
             const originalWidth = bg.texture.width;
@@ -49,7 +49,7 @@
             bg.height = originalHeight * scale;
 
             bg.anchor.set(0.5);
-            bg.x = app.screen.width;
+            bg.x = app.screen.width/2;
             bg.y = app.screen.height / 2;
             bgContainer.addChild(bg);
         })
@@ -84,9 +84,9 @@
         let stageEditLevel = -1;
         let stageLevel = 0;//关卡
         let lineWidth = 2; //线宽度
-        let lineColorIntersect = '#ff1972'; //线相交的颜色
-        let lineColorNormal = '#0c86ff';//线不相交的颜色
-        let lineAlpha = 1;
+        let lineColorIntersect = '#ff0000'; //线相交的颜色
+        let lineColorNormal = '#ffd11d';//线不相交的颜色
+        let lineAlpha = 0.8;
         let pointRadius = 40;//点的大小
         let pointColor = '#3071ff'; //点颜色
         let points = [];
@@ -129,7 +129,7 @@
                 }
             });
             text.x = app.renderer.width / 2;
-            text.y = 32;
+            text.y = app.renderer.height - 32;
             text.anchor.set(0.5);
             containerUi.addChild(text);
             uiText['gameTitle'] = text;
@@ -479,7 +479,7 @@
                 }
             });
             text.x = app.renderer.width / 2;
-            text.y = app.renderer.height - 40;
+            text.y = 40;
             text.anchor.set(0.5);
             containerUi.addChild(text);
             uiText['gameLevel'] = text;
