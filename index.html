@@ -94,6 +94,7 @@
         let points = [];
         let lines = [];
         let selectedPoints = [];
+        let lineOtherSidePoints = [];
         let uiText = {};
 
         let bgContainer = new PIXI.Container();
@@ -139,25 +140,30 @@
         
         // 创建点
         function createPoint(x, y,w,h) {
-            let point = new PIXI.Sprite();
+            // let point = new PIXI.Sprite();
             let size = Math.max(w,h);
-            point.width = size;
-            point.height = size;
-            //point.scale.set(4, 4); // 水平和垂直方向均放大2倍
-            point.anchor.set(0.5);
-            if(texturePoint){
-                point.texture = texturePoint;
-            }
-            // let point = new PIXI.Graphics();
-            // point.circle(0, 0, pointRadius);
-            // point.fill({ color: pointColor, alpha: 1 });
+            // point.width = size;
+            // point.height = size;
+            // point.anchor.set(0.5);
+            // if(texturePoint){
+            //     point.texture = texturePoint;
+            // }
+            let point = new PIXI.Graphics();
 
+            point.circle(0, 0, size * 0.28);
+            point.fill({ color: pointColor, alpha: 1 });
+            point.stroke({
+                color: lineColorNormal,
+                width: lineWidth,
+                alignment: 0.5,
+            });
             // const blurFilter1 = new PIXI.BlurFilter();
             // blurFilter1.blur = 2;
             // point.filters = [blurFilter1];
 
             point.x = x;
             point.y = y;
+            point.pointIndex = points.length - 1;
             point.interactive = true;
             point.eventMode = 'dynamic'; 
             point.on('tap', onPointClick);
@@ -205,8 +211,9 @@
                 return;
             }
             if(selectedPoints.length){
-                // 
                 if(this.x == selectedPoints[0].x && this.y == selectedPoints[0].y){
+                    lineOtherSidePoints.forEach(i => i.tint = 0xffffff);
+                    lineOtherSidePoints = [];
                     if(!isEditMode){
                         this.tint = 0xffffff;
                         selectedPoints = [];
@@ -217,6 +224,7 @@
             this.tint = 0xff0000;  
             if (selectedPoints.length < 2) { 
                 selectedPoints.push(this); 
+                getLineOtherPoints(selectedPoints[0]);
                 this.tint = 0xff0000;
                 if (selectedPoints.length === 2) { 
                     if(isEditMode){
@@ -229,6 +237,42 @@
                 } 
             } 
         }
+
+        //获取一个点上的线另一头的点
+        function getLineOtherPoints(point){
+            console.info(point.pointIndex)
+            let linesIndexArr = [];
+            for (let index = 0; index < lines.length; index++) {
+                const element = lines[index];
+                if(element.point1.x == point.x && element.point1.y == point.y){
+                    linesIndexArr.push(index)
+                }
+                if(element.point2.x == point.x && element.point2.y == point.y){
+                    linesIndexArr.push(index)
+                }
+            }
+            points.forEach((item,index)=>{
+                points[index].fill({ color: pointColor, alpha: 1 });
+                points[index].stroke({
+                    color: lineColorNormal,
+                    width: lineWidth,
+                    alignment: 0.5,
+                });
+                for (let idx = 0; idx < linesIndexArr.length; idx++) {
+                    const element = linesIndexArr[idx];
+                    if(lines[element].point1.x == item.x && lines[element].point1.y == item.y){
+                        points[index].tint = 0x00ff00;
+                        lineOtherSidePoints.push(points[index])
+                    }
+                    if(lines[element].point2.x == item.x && lines[element].point2.y == item.y){
+                        points[index].tint = 0x00ff00;
+                        lineOtherSidePoints.push(points[index])
+                    }
+                }
+            })
+
+        }
+
         function getIntersections(){
             let intersections = new Set();
             // 首先标记出相交的线段
@@ -277,10 +321,12 @@
                 onUpdate: updateLines,
                 onComplete: () => {
                     selectedPoints.forEach(i => i.tint = 0xffffff);
+                    lineOtherSidePoints.forEach(i => i.tint = 0xffffff);
+                    
                     // 动画完成后检查线段是否相交       
                     let intersections = getIntersections();
                     if(intersections.size){
-                        checkIntersections(intersections);
+                        checkIntersections(intersections);                        
                     }else{
                         stageComplete = true;
                         setTimeout(()=>{
@@ -291,6 +337,7 @@
 
                     }
                     selectedPoints = [];
+                    lineOtherSidePoints = [];
                 }
             });
         }
@@ -465,9 +512,6 @@
 
                 uiText['gameComplete'] = textRestart;
 
-
- 
-
                 return;
             }
             stageComplete = false;
@@ -539,6 +583,15 @@
             uiText['gameLevel'] = text;
 
             window.localStorage.setItem('level',stageLevel);
+
+            // points.forEach((point,index)=>{
+            //     points[0].stroke({
+            //         color: lineColorIntersect,
+            //         width: lineWidth,
+            //         alignment: 0.5,
+            //     });
+            // })
+
         }
         function randomLines(){
             // 随机线 随机取两条线，交换起点的位置
@@ -592,7 +645,8 @@
                     let column = idx;
                     createPoint(point.x,point.y,point.width,point.height)
                     points[points.length - 1].row = row;
-                    points[points.length - 1].column = column;                    
+                    points[points.length - 1].column = column;   
+                    
                 }
             }
             
