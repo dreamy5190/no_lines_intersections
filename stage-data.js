@@ -173,11 +173,11 @@ let STAGE_LEVEL_22 = {
 
 let STAGE_LEVEL_23 = {
     id : 23,
-    map : '{"points":[[8,6],[6,4],[7,3],[6,8],[7,9],[4,6],[4,10],[4,2],[0,6],[9,5],[10,6],[9,7],[12,2],[16,6],[12,10]],"lines":[{"point1":[8,6],"point2":[6,4]},{"point1":[7,3],"point2":[6,4]},{"point1":[6,8],"point2":[8,6]},{"point1":[7,9],"point2":[6,8]},{"point1":[6,4],"point2":[4,6]},{"point1":[4,6],"point2":[6,8]},{"point1":[6,8],"point2":[4,10]},{"point1":[4,2],"point2":[6,4]},{"point1":[0,6],"point2":[4,10]},{"point1":[0,6],"point2":[4,2]},{"point1":[8,6],"point2":[9,5]},{"point1":[9,5],"point2":[10,6]},{"point1":[10,6],"point2":[9,7]},{"point1":[9,7],"point2":[7,9]},{"point1":[8,6],"point2":[9,7]},{"point1":[9,5],"point2":[7,3]},{"point1":[9,5],"point2":[12,2]},{"point1":[12,2],"point2":[16,6]},{"point1":[16,6],"point2":[12,10]},{"point1":[12,10],"point2":[9,7]}]}',
     gridCountH : 13,
     gridCountV : 19,
     intersections : 12,
     randomCount : 3,
+    map : '{"points":[[7,3],[6,4],[7,9],[6,8],[4,6],[4,10],[4,2],[0,6],[9,5],[10,6],[9,7],[12,2],[16,6],[12,10]],"lines":[{"point1":[7,3],"point2":[6,4]},{"point1":[7,9],"point2":[6,8]},{"point1":[6,4],"point2":[4,6]},{"point1":[4,6],"point2":[6,8]},{"point1":[6,8],"point2":[4,10]},{"point1":[4,2],"point2":[6,4]},{"point1":[0,6],"point2":[4,10]},{"point1":[0,6],"point2":[4,2]},{"point1":[9,5],"point2":[10,6]},{"point1":[10,6],"point2":[9,7]},{"point1":[9,7],"point2":[7,9]},{"point1":[9,5],"point2":[7,3]},{"point1":[9,5],"point2":[12,2]},{"point1":[12,2],"point2":[16,6]},{"point1":[16,6],"point2":[12,10]},{"point1":[12,10],"point2":[9,7]}]}',
 }
 
 let STAGE_LEVEL_24 = {
@@ -318,7 +318,7 @@ let STAGE_DATA = [
     STAGE_LEVEL_1,
     STAGE_LEVEL_2,  
     STAGE_LEVEL_38, 
-    STAGE_LEVEL_36,
+    // STAGE_LEVEL_36,
     STAGE_LEVEL_37,
     STAGE_LEVEL_4, 
     STAGE_LEVEL_7,    
