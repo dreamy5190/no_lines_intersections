@@ -131,6 +131,7 @@
                     dropShadowDistance: 2
                 }
             });
+            text.name = 'rule-tips'
             text.x = app.renderer.width / 2;
             text.y = app.renderer.height - 32;
             text.anchor.set(0.5);
@@ -224,7 +225,10 @@
             this.tint = 0xff0000;  
             if (selectedPoints.length < 2) { 
                 selectedPoints.push(this); 
-                getLineOtherPoints(selectedPoints[0]);
+                if(!isEditMode){
+                    getLineOtherPoints(selectedPoints[0]);
+                }
+                
                 this.tint = 0xff0000;
                 if (selectedPoints.length === 2) { 
                     if(isEditMode){
@@ -418,10 +422,6 @@
             // 返回这两个数
             return [arr[index1], arr[index2]];
         }
-
-        // 写标题
-        createText();
-
         function resetGame(){
             if(points.length){
                 points.map((item,index)=>{
@@ -514,6 +514,8 @@
 
                 return;
             }
+            //写玩法
+            createText();
             stageComplete = false;
             console.info( 'stage id :' + STAGE_DATA[stageLevel].id)
             let pointPositionArr = getGridPosition(STAGE_DATA[stageLevel].gridCountH,STAGE_DATA[stageLevel].gridCountV);
@@ -645,8 +647,7 @@
                     let column = idx;
                     createPoint(point.x,point.y,point.width,point.height)
                     points[points.length - 1].row = row;
-                    points[points.length - 1].column = column;   
-                    
+                    points[points.length - 1].column = column;                       
                 }
             }
             
@@ -696,14 +697,40 @@
                     dropShadowDistance: 2
                 }
             });
-            text.x = app.renderer.width / 2;
-            text.y = app.renderer.height - 52;
+            text.x = app.renderer.width / 2 - 40;
+            text.y = app.renderer.height - 32;
             text.anchor.set(0.5);
 
             text.interactive = true;
             text.buttonMode = true; 
             text.on('pointerdown', onConfirmClick);
             containerUi.addChild(text);
+
+            let textDel = new PIXI.Text({
+                text : '删除节点', 
+                style : {
+                    fontFamily: 'Microsoft Yahei',
+                    fontSize: 16,
+                    fill: '#fff',
+                    align: 'center',
+                    dropShadow: true, // 启用阴影
+                    dropShadowColor: '#000000', 
+                    // 阴影颜色 
+                    dropShadowBlur: 2, 
+                    // 阴影模糊度 
+                    dropShadowAngle: Math.PI / 6, 
+                    // 阴影角度 
+                    dropShadowDistance: 2
+                }
+            });
+            textDel.x = app.renderer.width / 2 + 40;
+            textDel.y = app.renderer.height - 32;
+            textDel.anchor.set(0.5);
+
+            textDel.interactive = true;
+            textDel.buttonMode = true; 
+            textDel.on('pointerdown', deletePointAndLine);
+            containerUi.addChild(textDel);
         }
 
         function deletePointAndLine(){
@@ -751,6 +778,26 @@
             }
             
         }
+        async function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                // 使用 navigator.clipboard 写入剪贴板
+                try {
+                await navigator.clipboard.writeText(text);
+                console.log("内容已复制到剪贴板");
+                } catch (err) {
+                console.error("复制到剪贴板失败:", err);
+                }
+            } else {
+                // 退回到旧的方法
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textArea);
+                console.log("内容已复制到剪贴板");
+            }
+        }
 
         // 点击保存关卡
         function onConfirmClick(){
@@ -785,6 +832,8 @@
                 lines : lineArr,
             }
             console.info(JSON.stringify(stageData)) //把这个数据保存到关卡数据里即可
+            // 调用函数并传递要复制的文本
+            copyToClipboard(JSON.stringify(stageData));
         }
 
         function getUrlParams() {
