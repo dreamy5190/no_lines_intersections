@@ -16,7 +16,7 @@ let STAGE_LEVEL_2 = {
     id : 2,
     gridCountH : 13,
     gridCountV : 19,
-    map : '{"points":[[4,2],[4,10],[11,10],[11,2]],"lines":[{"point1":[4,2],"point2":[4,10]},{"point1":[4,10],"point2":[11,10]},{"point1":[11,10],"point2":[11,2]},{"point1":[11,2],"point2":[4,2]}]}',
+    map : '{"points":[[5,1],[5,11],[13,11],[13,1]],"lines":[{"point1":[5,1],"point2":[5,11]},{"point1":[13,11],"point2":[5,11]},{"point1":[13,11],"point2":[13,1]},{"point1":[13,1],"point2":[5,1]}]}',
     intersections : 2,
 }
 let STAGE_LEVEL_3= {
@@ -54,7 +54,7 @@ let STAGE_LEVEL_7 = {
     gridCountH : 13,
     gridCountV : 19,
     intersections : 6,
-    map : '{"points":[[2,6],[5,1],[10,1],[13,6],[10,11],[5,11],[5,8],[10,8],[5,4],[10,4]],"lines":[{"point1":[2,6],"point2":[5,1]},{"point1":[5,1],"point2":[10,1]},{"point1":[10,1],"point2":[13,6]},{"point1":[13,6],"point2":[10,11]},{"point1":[10,11],"point2":[5,11]},{"point1":[5,11],"point2":[2,6]},{"point1":[5,8],"point2":[10,8]},{"point1":[5,8],"point2":[5,4]},{"point1":[5,4],"point2":[10,4]},{"point1":[10,4],"point2":[10,8]},{"point1":[5,4],"point2":[10,1]},{"point1":[10,8],"point2":[5,11]},{"point1":[5,8],"point2":[2,6]},{"point1":[10,4],"point2":[13,6]}]}',
+    map : '{"points":[[2,6],[5,1],[10,1],[10,11],[5,11],[9,4],[6,4],[6,8],[9,8],[13,6]],"lines":[{"point1":[2,6],"point2":[5,1]},{"point1":[5,1],"point2":[10,1]},{"point1":[10,11],"point2":[5,11]},{"point1":[5,11],"point2":[2,6]},{"point1":[9,4],"point2":[6,4]},{"point1":[6,8],"point2":[9,8]},{"point1":[9,8],"point2":[9,4]},{"point1":[6,8],"point2":[6,4]},{"point1":[2,6],"point2":[6,8]},{"point1":[9,8],"point2":[5,11]},{"point1":[13,6],"point2":[10,11]},{"point1":[13,6],"point2":[9,4]},{"point1":[13,6],"point2":[10,1]},{"point1":[6,4],"point2":[10,1]}]}',
 }
 let STAGE_LEVEL_8 = {
     id : 8,
@@ -134,7 +134,7 @@ let STAGE_LEVEL_18 = {
     gridCountV : 19,
     intersections : 8,
     randomCount : 3,
-    map : '{"points":[[10,6],[5,9],[5,12],[8,12],[12,12],[15,12],[15,9],[5,0],[5,3],[9,0],[12,0],[15,0],[15,3]],"lines":[{"point1":[10,6],"point2":[5,9]},{"point1":[5,9],"point2":[5,12]},{"point1":[5,12],"point2":[8,12]},{"point1":[8,12],"point2":[10,6]},{"point1":[10,6],"point2":[12,12]},{"point1":[12,12],"point2":[15,12]},{"point1":[15,12],"point2":[15,9]},{"point1":[15,9],"point2":[10,6]},{"point1":[5,0],"point2":[5,3]},{"point1":[5,3],"point2":[10,6]},{"point1":[5,0],"point2":[9,0]},{"point1":[9,0],"point2":[10,6]},{"point1":[10,6],"point2":[12,0]},{"point1":[12,0],"point2":[15,0]},{"point1":[15,0],"point2":[15,3]},{"point1":[15,3],"point2":[10,6]}]}',
+    map : '{"points":[[10,6],[5,9],[5,12],[8,12],[12,12],[15,12],[15,9],[5,0],[5,3],[12,0],[15,0],[15,3],[8,0]],"lines":[{"point1":[10,6],"point2":[5,9]},{"point1":[5,9],"point2":[5,12]},{"point1":[5,12],"point2":[8,12]},{"point1":[8,12],"point2":[10,6]},{"point1":[10,6],"point2":[12,12]},{"point1":[12,12],"point2":[15,12]},{"point1":[15,12],"point2":[15,9]},{"point1":[15,9],"point2":[10,6]},{"point1":[5,0],"point2":[5,3]},{"point1":[5,3],"point2":[10,6]},{"point1":[10,6],"point2":[12,0]},{"point1":[12,0],"point2":[15,0]},{"point1":[15,0],"point2":[15,3]},{"point1":[15,3],"point2":[10,6]},{"point1":[8,0],"point2":[10,6]},{"point1":[8,0],"point2":[5,0]}]}',
 }
 let STAGE_LEVEL_19 ={
     id : 19,
@@ -218,11 +218,11 @@ let STAGE_LEVEL_27 = {
 
 let STAGE_LEVEL_28 = {
     id : 28,
-    map : '{"points":[[5,2],[4,4],[4,8],[5,10],[6,5],[6,7],[10,3],[9,4],[9,8],[10,9],[7,3],[9,10],[7,9],[6,3],[5,7],[5,5],[6,9],[7,0],[7,12],[9,2]],"lines":[{"point1":[5,2],"point2":[4,4]},{"point1":[4,4],"point2":[4,8]},{"point1":[4,8],"point2":[5,10]},{"point1":[6,5],"point2":[6,7]},{"point1":[10,3],"point2":[9,4]},{"point1":[9,4],"point2":[9,8]},{"point1":[9,8],"point2":[10,9]},{"point1":[7,3],"point2":[6,5]},{"point1":[9,10],"point2":[10,9]},{"point1":[9,10],"point2":[7,9]},{"point1":[7,9],"point2":[6,7]},{"point1":[5,2],"point2":[6,3]},{"point1":[5,2],"point2":[6,3]},{"point1":[7,3],"point2":[6,3]},{"point1":[5,7],"point2":[4,8]},{"point1":[5,7],"point2":[6,7]},{"point1":[6,3],"point2":[5,5]},{"point1":[5,5],"point2":[4,4]},{"point1":[5,5],"point2":[6,5]},{"point1":[5,5],"point2":[5,7]},{"point1":[6,9],"point2":[5,7]},{"point1":[6,9],"point2":[5,10]},{"point1":[6,9],"point2":[7,9]},{"point1":[7,0],"point2":[5,2]},{"point1":[5,10],"point2":[7,12]},{"point1":[7,12],"point2":[9,10]},{"point1":[9,2],"point2":[7,3]},{"point1":[9,2],"point2":[7,0]},{"point1":[9,2],"point2":[10,3]}]}',
     gridCountH : 13,
     gridCountV : 19,
     intersections : 20,
     randomCount : 5,
+    map : '{"points":[[4,4],[4,8],[6,5],[6,7],[10,3],[9,4],[9,8],[10,9],[7,3],[7,9],[5,7],[5,5],[7,0],[7,12],[6,1],[6,11]],"lines":[{"point1":[4,4],"point2":[4,8]},{"point1":[6,5],"point2":[6,7]},{"point1":[10,3],"point2":[9,4]},{"point1":[9,4],"point2":[9,8]},{"point1":[9,8],"point2":[10,9]},{"point1":[7,3],"point2":[6,5]},{"point1":[7,9],"point2":[6,7]},{"point1":[5,7],"point2":[4,8]},{"point1":[5,7],"point2":[6,7]},{"point1":[5,5],"point2":[4,4]},{"point1":[5,5],"point2":[6,5]},{"point1":[5,5],"point2":[5,7]},{"point1":[9,4],"point2":[7,3]},{"point1":[10,3],"point2":[7,0]},{"point1":[10,9],"point2":[7,12]},{"point1":[7,9],"point2":[9,8]},{"point1":[6,1],"point2":[7,3]},{"point1":[6,1],"point2":[7,0]},{"point1":[6,1],"point2":[4,4]},{"point1":[6,11],"point2":[7,12]},{"point1":[6,11],"point2":[4,8]},{"point1":[7,9],"point2":[6,11]}]}',
 }
 
 let STAGE_LEVEL_29 = {
@@ -234,31 +234,118 @@ let STAGE_LEVEL_29 = {
     randomCount : 5,
 }
 
+let STAGE_LEVEL_30 = {
+    id : 30,
+    gridCountH : 13,
+    gridCountV : 19,
+    intersections : 20,
+    randomCount : 4,
+    map : '{"points":[[9,10],[11,10],[9,11],[8,11],[10,11],[10,12],[8,12],[7,10],[7,8],[6,8],[6,7],[6,9],[5,9],[5,7],[5,12],[5,5],[5,3],[6,5],[6,4],[6,3],[5,0],[7,4],[7,2],[9,2],[9,1],[8,1],[10,1],[8,0],[10,0],[11,2],[11,4],[12,4],[12,3],[12,5],[13,5],[13,3],[13,0],[11,8],[12,8],[12,7],[12,9],[13,9],[13,7],[13,12]],"lines":[{"point1":[9,10],"point2":[11,10]},{"point1":[9,10],"point2":[9,11]},{"point1":[9,11],"point2":[8,11]},{"point1":[9,11],"point2":[10,11]},{"point1":[10,11],"point2":[10,12]},{"point1":[8,11],"point2":[8,12]},{"point1":[7,10],"point2":[9,10]},{"point1":[10,12],"point2":[8,12]},{"point1":[7,10],"point2":[7,8]},{"point1":[7,8],"point2":[6,8]},{"point1":[6,8],"point2":[6,7]},{"point1":[6,8],"point2":[6,9]},{"point1":[6,9],"point2":[5,9]},{"point1":[6,7],"point2":[5,7]},{"point1":[5,12],"point2":[5,9]},{"point1":[5,9],"point2":[5,7]},{"point1":[5,5],"point2":[5,3]},{"point1":[5,5],"point2":[5,7]},{"point1":[6,5],"point2":[5,5]},{"point1":[6,5],"point2":[6,4]},{"point1":[6,4],"point2":[6,3]},{"point1":[6,3],"point2":[5,3]},{"point1":[5,3],"point2":[5,0]},{"point1":[6,4],"point2":[7,4]},{"point1":[7,4],"point2":[7,8]},{"point1":[7,4],"point2":[7,2]},{"point1":[9,2],"point2":[9,1]},{"point1":[9,1],"point2":[8,1]},{"point1":[9,1],"point2":[10,1]},{"point1":[8,1],"point2":[8,0]},{"point1":[10,1],"point2":[10,0]},{"point1":[10,0],"point2":[8,0]},{"point1":[9,2],"point2":[7,2]},{"point1":[9,2],"point2":[11,2]},{"point1":[11,2],"point2":[11,4]},{"point1":[11,4],"point2":[12,4]},{"point1":[12,4],"point2":[12,3]},{"point1":[12,4],"point2":[12,5]},{"point1":[12,5],"point2":[13,5]},{"point1":[12,3],"point2":[13,3]},{"point1":[13,0],"point2":[13,3]},{"point1":[13,0],"point2":[10,0]},{"point1":[13,3],"point2":[13,5]},{"point1":[11,8],"point2":[12,8]},{"point1":[12,8],"point2":[12,7]},{"point1":[12,8],"point2":[12,9]},{"point1":[12,9],"point2":[13,9]},{"point1":[12,7],"point2":[13,7]},{"point1":[13,5],"point2":[13,7]},{"point1":[13,7],"point2":[13,9]},{"point1":[13,9],"point2":[13,12]},{"point1":[11,10],"point2":[11,8]},{"point1":[11,8],"point2":[11,4]},{"point1":[13,12],"point2":[10,12]},{"point1":[8,12],"point2":[5,12]},{"point1":[8,0],"point2":[5,0]}]}',
+}
+let STAGE_LEVEL_31 = {
+    id : 31,
+    gridCountH : 13,
+    gridCountV : 19,
+    intersections : 20,
+    randomCount : 4,
+    map : '{"points":[[6,0],[4,2],[6,12],[10,12],[12,2],[10,0],[4,10],[4,6],[6,6],[6,9],[6,3],[10,9],[10,6],[10,3],[7,6],[9,6],[12,6],[12,10],[9,8],[7,8],[7,4],[9,4]],"lines":[{"point1":[6,0],"point2":[4,2]},{"point1":[6,12],"point2":[10,12]},{"point1":[12,2],"point2":[10,0]},{"point1":[10,0],"point2":[6,0]},{"point1":[4,10],"point2":[4,6]},{"point1":[4,6],"point2":[6,6]},{"point1":[6,6],"point2":[6,9]},{"point1":[4,6],"point2":[4,2]},{"point1":[6,6],"point2":[6,3]},{"point1":[6,9],"point2":[10,9]},{"point1":[10,9],"point2":[10,6]},{"point1":[10,6],"point2":[10,3]},{"point1":[10,3],"point2":[6,3]},{"point1":[6,6],"point2":[7,6]},{"point1":[9,6],"point2":[7,6]},{"point1":[9,6],"point2":[10,6]},{"point1":[12,6],"point2":[12,10]},{"point1":[12,10],"point2":[10,12]},{"point1":[10,6],"point2":[12,6]},{"point1":[12,6],"point2":[12,2]},{"point1":[6,12],"point2":[4,10]},{"point1":[9,8],"point2":[7,8]},{"point1":[7,8],"point2":[7,6]},{"point1":[7,4],"point2":[7,6]},{"point1":[7,4],"point2":[9,4]},{"point1":[9,4],"point2":[9,6]},{"point1":[9,6],"point2":[9,8]}]}',
+}
+
+let STAGE_LEVEL_32 = {
+    id : 32,
+    map : '{"points":[[6,0],[4,2],[4,10],[10,12],[12,10],[12,2],[9,0],[7,0],[10,0],[7,3],[6,4],[6,8],[7,9],[7,12],[6,12],[9,12],[9,9],[10,8],[10,4],[9,3],[8,5],[7,6],[8,7],[9,6]],"lines":[{"point1":[6,0],"point2":[4,2]},{"point1":[4,2],"point2":[4,10]},{"point1":[10,12],"point2":[12,10]},{"point1":[12,10],"point2":[12,2]},{"point1":[9,0],"point2":[7,0]},{"point1":[9,0],"point2":[10,0]},{"point1":[7,0],"point2":[6,0]},{"point1":[7,0],"point2":[7,3]},{"point1":[7,3],"point2":[6,4]},{"point1":[6,4],"point2":[6,8]},{"point1":[7,9],"point2":[6,8]},{"point1":[7,12],"point2":[6,12]},{"point1":[7,12],"point2":[7,9]},{"point1":[9,12],"point2":[10,12]},{"point1":[9,12],"point2":[9,9]},{"point1":[9,9],"point2":[10,8]},{"point1":[10,8],"point2":[10,4]},{"point1":[10,4],"point2":[9,3]},{"point1":[9,3],"point2":[9,0]},{"point1":[12,2],"point2":[10,0]},{"point1":[8,5],"point2":[7,6]},{"point1":[7,6],"point2":[8,7]},{"point1":[8,7],"point2":[9,6]},{"point1":[9,6],"point2":[8,5]},{"point1":[6,12],"point2":[4,10]}]}',
+    gridCountH : 13,
+    gridCountV : 19,
+    intersections : 20,
+    randomCount : 4,
+}
+
+let STAGE_LEVEL_33 = {
+    id : 33,
+    gridCountH : 13,
+    gridCountV : 19,
+    intersections : 20,
+    randomCount : 4,
+    map : '{"points":[[0,4],[1,4],[1,5],[2,5],[1,7],[1,8],[0,8],[2,6],[2,7],[17,8],[17,7],[17,5],[17,4],[18,4],[18,8],[0,11],[18,11],[18,1],[0,1],[16,6],[16,7],[16,5],[14,6],[14,7],[14,5],[13,7],[13,8],[12,8],[12,9],[13,5],[13,4],[12,4],[12,3],[4,6],[4,7],[5,7],[5,8],[6,8],[4,5],[5,5],[5,4],[6,4],[6,3],[6,9]],"lines":[{"point1":[0,4],"point2":[1,4]},{"point1":[1,4],"point2":[1,5]},{"point1":[1,5],"point2":[2,5]},{"point1":[1,7],"point2":[1,8]},{"point1":[1,8],"point2":[0,8]},{"point1":[0,8],"point2":[0,4]},{"point1":[2,5],"point2":[2,6]},{"point1":[2,6],"point2":[2,7]},{"point1":[2,7],"point2":[1,7]},{"point1":[17,8],"point2":[17,7]},{"point1":[17,5],"point2":[17,4]},{"point1":[17,4],"point2":[18,4]},{"point1":[18,4],"point2":[18,8]},{"point1":[0,8],"point2":[0,11]},{"point1":[0,11],"point2":[18,11]},{"point1":[18,11],"point2":[18,8]},{"point1":[18,4],"point2":[18,1]},{"point1":[18,1],"point2":[0,1]},{"point1":[0,1],"point2":[0,4]},{"point1":[16,6],"point2":[16,7]},{"point1":[16,5],"point2":[16,6]},{"point1":[16,5],"point2":[17,5]},{"point1":[17,7],"point2":[16,7]},{"point1":[16,6],"point2":[14,6]},{"point1":[14,6],"point2":[14,7]},{"point1":[14,5],"point2":[14,6]},{"point1":[14,7],"point2":[13,7]},{"point1":[13,7],"point2":[13,8]},{"point1":[13,8],"point2":[12,8]},{"point1":[12,8],"point2":[12,9]},{"point1":[14,5],"point2":[13,5]},{"point1":[13,5],"point2":[13,4]},{"point1":[13,4],"point2":[12,4]},{"point1":[12,4],"point2":[12,3]},{"point1":[2,6],"point2":[4,6]},{"point1":[4,6],"point2":[4,7]},{"point1":[4,7],"point2":[5,7]},{"point1":[5,7],"point2":[5,8]},{"point1":[5,8],"point2":[6,8]},{"point1":[4,6],"point2":[4,5]},{"point1":[4,5],"point2":[5,5]},{"point1":[5,5],"point2":[5,4]},{"point1":[5,4],"point2":[6,4]},{"point1":[6,4],"point2":[6,3]},{"point1":[6,8],"point2":[6,9]},{"point1":[6,9],"point2":[12,9]},{"point1":[6,3],"point2":[12,3]}]}',
+}
+
+let STAGE_LEVEL_34 = {
+    id : 34,
+    gridCountH : 13,
+    gridCountV : 19,
+    intersections : 20,
+    randomCount : 4,
+    map : '{"points":[[3,4],[2,5],[3,8],[4,8],[5,5],[4,4],[2,6],[2,7],[5,7],[5,6],[0,6],[15,4],[16,5],[14,4],[14,8],[15,8],[16,7],[13,5],[16,6],[18,6],[13,6],[13,7],[9,6],[0,11],[1,11],[0,2],[1,2],[1,1],[0,1],[9,1],[9,2],[9,10],[9,11],[1,10],[0,10],[17,1],[17,2],[18,2],[18,1],[18,10],[17,10],[18,11],[17,11]],"lines":[{"point1":[3,4],"point2":[2,5]},{"point1":[3,8],"point2":[4,8]},{"point1":[5,5],"point2":[4,4]},{"point1":[4,4],"point2":[3,4]},{"point1":[2,6],"point2":[2,7]},{"point1":[5,7],"point2":[5,6]},{"point1":[5,5],"point2":[5,6]},{"point1":[5,7],"point2":[4,8]},{"point1":[2,6],"point2":[2,5]},{"point1":[0,6],"point2":[2,6]},{"point1":[2,6],"point2":[5,6]},{"point1":[15,4],"point2":[16,5]},{"point1":[15,4],"point2":[14,4]},{"point1":[14,8],"point2":[15,8]},{"point1":[15,8],"point2":[16,7]},{"point1":[14,4],"point2":[13,5]},{"point1":[16,6],"point2":[18,6]},{"point1":[13,6],"point2":[13,7]},{"point1":[13,7],"point2":[14,8]},{"point1":[13,6],"point2":[13,5]},{"point1":[16,6],"point2":[13,6]},{"point1":[13,6],"point2":[9,6]},{"point1":[9,6],"point2":[5,6]},{"point1":[0,11],"point2":[1,11]},{"point1":[2,7],"point2":[3,8]},{"point1":[16,7],"point2":[16,6]},{"point1":[16,6],"point2":[16,5]},{"point1":[0,2],"point2":[1,2]},{"point1":[1,1],"point2":[1,2]},{"point1":[0,1],"point2":[0,2]},{"point1":[1,1],"point2":[0,1]},{"point1":[1,1],"point2":[9,1]},{"point1":[1,2],"point2":[9,2]},{"point1":[9,2],"point2":[9,6]},{"point1":[9,6],"point2":[9,10]},{"point1":[9,10],"point2":[9,11]},{"point1":[9,10],"point2":[1,10]},{"point1":[1,10],"point2":[0,10]},{"point1":[1,10],"point2":[1,11]},{"point1":[1,11],"point2":[9,11]},{"point1":[0,11],"point2":[0,10]},{"point1":[0,10],"point2":[0,6]},{"point1":[0,6],"point2":[0,2]},{"point1":[9,2],"point2":[9,1]},{"point1":[17,1],"point2":[9,1]},{"point1":[17,1],"point2":[17,2]},{"point1":[17,2],"point2":[18,2]},{"point1":[18,2],"point2":[18,1]},{"point1":[18,1],"point2":[17,1]},{"point1":[17,2],"point2":[9,2]},{"point1":[18,2],"point2":[18,6]},{"point1":[18,10],"point2":[17,10]},{"point1":[18,11],"point2":[17,11]},{"point1":[18,11],"point2":[18,10]},{"point1":[17,10],"point2":[17,11]},{"point1":[17,10],"point2":[9,10]},{"point1":[9,11],"point2":[17,11]},{"point1":[18,10],"point2":[18,6]}]}',
+}
+
+let STAGE_LEVEL_35 = {
+    id : 35,
+    gridCountH : 13,
+    gridCountV : 19,
+    intersections : 20,
+    randomCount : 4,
+    map : '{"points":[[8,0],[6,1],[4,2],[3,4],[2,6],[3,8],[14,6],[13,4],[12,2],[10,1],[8,8],[10,6],[8,4],[8,10],[10,9],[11,7],[10,3],[8,2],[6,3],[11,5],[6,6],[5,7],[6,9],[5,5],[4,10],[6,11],[10,11],[12,10],[8,12],[13,8]],"lines":[{"point1":[8,0],"point2":[6,1]},{"point1":[6,1],"point2":[4,2]},{"point1":[4,2],"point2":[3,4]},{"point1":[3,4],"point2":[2,6]},{"point1":[2,6],"point2":[3,8]},{"point1":[14,6],"point2":[13,4]},{"point1":[13,4],"point2":[12,2]},{"point1":[12,2],"point2":[10,1]},{"point1":[10,1],"point2":[8,0]},{"point1":[8,8],"point2":[10,6]},{"point1":[10,6],"point2":[8,4]},{"point1":[8,10],"point2":[10,9]},{"point1":[11,7],"point2":[10,9]},{"point1":[8,8],"point2":[10,9]},{"point1":[10,3],"point2":[8,2]},{"point1":[6,3],"point2":[8,2]},{"point1":[11,5],"point2":[11,7]},{"point1":[11,5],"point2":[10,3]},{"point1":[10,3],"point2":[10,6]},{"point1":[6,6],"point2":[5,7]},{"point1":[6,9],"point2":[8,10]},{"point1":[6,9],"point2":[5,7]},{"point1":[6,6],"point2":[8,8]},{"point1":[6,6],"point2":[8,4]},{"point1":[8,4],"point2":[6,3]},{"point1":[5,5],"point2":[4,2]},{"point1":[6,3],"point2":[5,5]},{"point1":[5,5],"point2":[5,7]},{"point1":[10,1],"point2":[8,2]},{"point1":[4,10],"point2":[6,11]},{"point1":[4,10],"point2":[3,8]},{"point1":[3,8],"point2":[6,9]},{"point1":[10,11],"point2":[12,10]},{"point1":[8,12],"point2":[6,11]},{"point1":[8,12],"point2":[10,11]},{"point1":[13,8],"point2":[12,10]},{"point1":[13,8],"point2":[14,6]},{"point1":[11,5],"point2":[13,8]}]}',
+}
+
+let STAGE_LEVEL_36 = {
+    id : 36,
+    gridCountH : 13,
+    gridCountV : 19,
+    intersections : 2,
+    randomCount : 1,
+    map : '{"points":[[5,1],[5,11],[13,11],[13,1],[9,6]],"lines":[{"point1":[5,1],"point2":[5,11]},{"point1":[13,11],"point2":[5,11]},{"point1":[13,11],"point2":[13,1]},{"point1":[13,1],"point2":[5,1]},{"point1":[9,6],"point2":[5,11]},{"point1":[9,6],"point2":[13,11]},{"point1":[9,6],"point2":[13,1]},{"point1":[9,6],"point2":[5,1]}]}',
+}
+
+let STAGE_LEVEL_37 = {
+    id : 37,
+    gridCountH : 13,
+    gridCountV : 19,
+    intersections : 2,
+    randomCount : 1,
+    map : '{"points":[[4,10],[6,1],[11,11],[13,2],[11,7],[8,3],[7,8]],"lines":[{"point1":[4,10],"point2":[6,1]},{"point1":[4,10],"point2":[11,11]},{"point1":[11,11],"point2":[13,2]},{"point1":[13,2],"point2":[6,1]},{"point1":[11,7],"point2":[8,3]},{"point1":[7,8],"point2":[11,7]},{"point1":[8,3],"point2":[6,1]},{"point1":[11,7],"point2":[13,2]},{"point1":[7,8],"point2":[4,10]},{"point1":[8,3],"point2":[7,8]}]}',
+}
+
+let STAGE_LEVEL_38 = {
+    id : 38,
+    gridCountH : 13,
+    gridCountV : 19,
+    intersections : 2,
+    randomCount : 1,
+    map : '{"points":[[3,3],[3,9],[8,12],[13,9],[13,3],[8,0]],"lines":[{"point1":[3,3],"point2":[3,9]},{"point1":[3,9],"point2":[8,12]},{"point1":[8,12],"point2":[13,9]},{"point1":[13,9],"point2":[13,3]},{"point1":[13,3],"point2":[8,0]},{"point1":[8,0],"point2":[3,3]}]}',
+}
+
 let STAGE_DATA = [
     STAGE_LEVEL_1,
-    STAGE_LEVEL_2,
-    STAGE_LEVEL_18,
-    STAGE_LEVEL_4,    
+    STAGE_LEVEL_2,  
+    STAGE_LEVEL_38, 
+    STAGE_LEVEL_36,
+    STAGE_LEVEL_37,
+    STAGE_LEVEL_4, 
+    STAGE_LEVEL_7,    
+    STAGE_LEVEL_5,   
+    STAGE_LEVEL_18,  
+    STAGE_LEVEL_9,    
+    STAGE_LEVEL_8,
+    STAGE_LEVEL_19,  
+    STAGE_LEVEL_6,
+    STAGE_LEVEL_15,    
+    STAGE_LEVEL_10,
     STAGE_LEVEL_20,
     STAGE_LEVEL_21,
     STAGE_LEVEL_22,
-    STAGE_LEVEL_23,
-    STAGE_LEVEL_5,
-    STAGE_LEVEL_6,
-    STAGE_LEVEL_8,
-    STAGE_LEVEL_15,
-    STAGE_LEVEL_7,    
-    STAGE_LEVEL_9,
-    STAGE_LEVEL_10,
-    STAGE_LEVEL_19,
+    STAGE_LEVEL_23,    
     STAGE_LEVEL_12,
     STAGE_LEVEL_14,
-    STAGE_LEVEL_15,
     STAGE_LEVEL_16,
     STAGE_LEVEL_17,
-    STAGE_LEVEL_24,
     STAGE_LEVEL_26,
     STAGE_LEVEL_27,
     STAGE_LEVEL_28,
     STAGE_LEVEL_29,
+    STAGE_LEVEL_30,
+    STAGE_LEVEL_31,
+    STAGE_LEVEL_32,
+    STAGE_LEVEL_33,
+    STAGE_LEVEL_34,
+    STAGE_LEVEL_35,  
 ]
