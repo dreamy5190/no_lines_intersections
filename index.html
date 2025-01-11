@@ -151,7 +151,8 @@
             // }
             let point = new PIXI.Graphics();
 
-            point.circle(0, 0, size * 0.28);
+            // point.rect(-0.5 * size,-0.5 * size,size,size);
+            point.circle(0, 0, size * 0.3);
             point.fill({ color: pointColor, alpha: 1 });
             point.stroke({
                 color: lineColorNormal,
@@ -166,7 +167,7 @@
             point.y = y;
             point.pointIndex = points.length - 1;
             point.interactive = true;
-            // point.hitArea = new PIXI.Rectangle(-size,-size,size * 2,size * 2);
+            point.hitArea = new PIXI.Rectangle(-0.5 * size,-0.5 * size,size,size);
             point.eventMode = 'dynamic'; 
             point.on('tap', onPointClick);
             // app.stage.addChild(point);
