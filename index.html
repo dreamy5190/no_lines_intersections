@@ -59,25 +59,28 @@
     <script type="module">
 
         let isBgmPlaying = false;
-        let randomBgm = ['./bgm.mp3','./bgm2.mp3','./bgm3.mp3','./bgm4.mp3'];
-        let randmbgmIndex = Math.floor(Math.random() * randomBgm.length);
-        randmbgmIndex = randmbgmIndex == randomBgm.length ? randmbgmIndex - 1 : randmbgmIndex;
+        
+
         // 创建音频对象
         var audioButton = new Audio('./button.mp3');
-        var audioBgm = new Audio(randomBgm[randmbgmIndex]);        
-        audioBgm.loop = true;
-        audioBgm.volume = 0.5;
+        var audioBgm = new Audio('./bgm.mp3');
+        let randomBgm = ['./bgm.mp3','./bgm2.mp3','./bgm3.mp3','./bgm4.mp3'];
+        
         document.querySelector('.icon-music').addEventListener('click',()=>{
             if(isBgmPlaying){
                 audioBgm.pause();
                 isBgmPlaying = false;
                 document.querySelector('.disabled-line').style.display = "block";
             }else{
+                let randmbgmIndex = Math.floor(Math.random() * randomBgm.length);
+                randmbgmIndex = randmbgmIndex == randomBgm.length ? randmbgmIndex - 1 : randmbgmIndex;
+                audioBgm = new Audio(randomBgm[randmbgmIndex]);
                 audioBgm.play();
+                audioBgm.loop = true;
+                audioBgm.volume = 0.5;
                 isBgmPlaying = true;
                 document.querySelector('.disabled-line').style.display = "none";
             }
-
         })
         
 
