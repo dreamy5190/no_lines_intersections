@@ -269,6 +269,7 @@
                 return;
             }
             // 播放音频
+            audioButton = new Audio('./button.mp3');
             audioButton.play();
             if(selectedPoints.length){
                 if(this.x == selectedPoints[0].x && this.y == selectedPoints[0].y){
