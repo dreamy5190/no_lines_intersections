@@ -25,8 +25,63 @@
             width: 100vw;
             height: 100vh;
         }
+        .icon-music-box{
+            position: fixed;
+            top: 22px;
+            right: 16px;
+            z-index: 100;
+        }
+        .icon-music-wrapper{
+            position: relative;
+        }
+        .disabled-line{
+            position: absolute;
+            top: 35%;
+            left: -7%;
+            width: 120%;
+            height: 1px;
+            background: #fff;
+            transform: rotate(45deg);
+        }
+        .icon-music{
+            width: 20px;
+            height: 20px;
+        }
     </style>
+    <div class="icon-music-box">
+        <div class="icon-music-wrapper">
+            <img class="icon-music" src="./images/icon-music.png" alt="">
+            <div class="disabled-line"></div>
+        </div>
+    </div>
+    
+
     <script type="module">
+
+        let isBgmPlaying = false;
+        let randomBgm = ['./bgm.mp3','./bgm2.mp3','./bgm3.mp3','./bgm4.mp3'];
+        let randmbgmIndex = Math.floor(Math.random() * randomBgm.length);
+        randmbgmIndex = randmbgmIndex == randomBgm.length ? randmbgmIndex - 1 : randmbgmIndex;
+        // 创建音频对象
+        var audioButton = new Audio('./button.mp3');
+        var audioBgm = new Audio(randomBgm[randmbgmIndex]);        
+        audioBgm.loop = true;
+        audioBgm.volume = 0.5;
+        document.querySelector('.icon-music').addEventListener('click',()=>{
+            if(isBgmPlaying){
+                audioBgm.pause();
+                isBgmPlaying = false;
+                document.querySelector('.disabled-line').style.display = "block";
+            }else{
+                audioBgm.play();
+                isBgmPlaying = true;
+                document.querySelector('.disabled-line').style.display = "none";
+            }
+
+        })
+        
+
+
         const app = new PIXI.Application();
         await app.init({
             resizeTo: window,
@@ -213,6 +268,9 @@
             if(stageComplete){
                 return;
             }
+            // 播放音频
+            audioButton.play();
+            audioBgm.play();
             if(selectedPoints.length){
                 if(this.x == selectedPoints[0].x && this.y == selectedPoints[0].y){
                     lineOtherSidePoints.forEach(i => i.tint = 0xffffff);
