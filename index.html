@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>连线游戏</title>
-    <script src="./pixi.js"></script>
-    <script src="./gsap.min.js"></script>
-    <script src="./stage-data.js?v=2025011103"></script>
-    <script src="./edit-game.js?v=2025011003"></script>
+    <script src="./js/pixi.js"></script>
+    <script src="./js/gsap.min.js"></script>
+    <script src="./js/stage-data.js?v=2025011103"></script>
+    <script src="./js/edit-game.js?v=2025011003"></script>
 </head>
 <body>
     <style>
@@ -62,9 +62,9 @@
         
 
         // 创建音频对象
-        var audioButton = new Audio('./button.mp3');
-        var audioBgm = new Audio('./bgm.mp3');
-        let randomBgm = ['./bgm.mp3','./bgm2.mp3','./bgm3.mp3','./bgm4.mp3'];
+        var audioButton = new Audio('./audio/button.mp3');
+        var audioBgm = new Audio('./audio/bgm.mp3');
+        let randomBgm = ['./audio/bgm.mp3','./audio/bgm2.mp3','./audio/bgm3.mp3','./audio/bgm4.mp3'];
         
         document.querySelector('.icon-music').addEventListener('click',()=>{
             if(isBgmPlaying){
@@ -245,7 +245,7 @@
 
             line.moveTo(point1.x, point1.y);
             line.lineTo(point2.x, point2.y);
-            // 创建多个模糊的线条并叠加
+            // 创建多个模糊的线条并叠加 ，性能问题，加不了，会卡爆，所以做不了发光
             // for (let i = 0; i < 2; i++) {
             //     const blurLine = line.clone();
             //     blurLine.filters = [new PIXI.BlurFilter(i * 3)];
@@ -272,7 +272,7 @@
                 return;
             }
             // 播放音频
-            audioButton = new Audio('./button.mp3');
+            audioButton = new Audio('./audio/button.mp3');
             audioButton.play();
             if(selectedPoints.length){
                 if(this.x == selectedPoints[0].x && this.y == selectedPoints[0].y){
