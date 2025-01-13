@@ -53,28 +53,21 @@
             <img class="icon-music" src="./images/icon-music.png" alt="">
             <div class="disabled-line"></div>
         </div>
-    </div>
-    
+    </div>    
 
     <script type="module">
-
         let isBgmPlaying = false;
-        
-
         // 创建音频对象
-        var audioButton = new Audio('./audio/button.mp3');
-        var audioBgm = new Audio('./audio/bgm.mp3');
-        let randomBgm = ['./audio/bgm.mp3','./audio/bgm2.mp3','./audio/bgm3.mp3','./audio/bgm4.mp3'];
-        
+        var audioButton = new Audio('./audio/button.mp3');        
+        let randomBgm = ['./audio/bgm.mp3','./audio/bgm2.mp3','./audio/bgm3.mp3','./audio/bgm4.mp3'];   
+        var audioBgm = new Audio(randomBgm[getRandomIndex(randomBgm)]);        
         document.querySelector('.icon-music').addEventListener('click',()=>{
             if(isBgmPlaying){
                 audioBgm.pause();
                 isBgmPlaying = false;
                 document.querySelector('.disabled-line').style.display = "block";
-            }else{
-                let randmbgmIndex = Math.floor(Math.random() * randomBgm.length);
-                randmbgmIndex = randmbgmIndex == randomBgm.length ? randmbgmIndex - 1 : randmbgmIndex;
-                audioBgm = new Audio(randomBgm[randmbgmIndex]);
+            }else{                
+                audioBgm = new Audio(randomBgm[getRandomIndex(randomBgm)]);
                 audioBgm.play();
                 audioBgm.loop = true;
                 audioBgm.volume = 0.5;
@@ -82,7 +75,11 @@
                 document.querySelector('.disabled-line').style.display = "none";
             }
         })
-        
+        function getRandomIndex(arr){
+            let randmbgmIndex = Math.floor(Math.random() * arr.length);
+            randmbgmIndex = randmbgmIndex == arr.length ? randmbgmIndex - 1 : randmbgmIndex;
+            return randmbgmIndex;
+        }
 
 
         const app = new PIXI.Application();
@@ -934,14 +931,27 @@
             }
         }
 
-        // 监听键盘按下事件
-        window.addEventListener('keydown', onKeyDown);
-
+        function getStageLevelById(id){
+            let res = -1;
+            for (let index = 0; index < STAGE_DATA.length; index++) {
+                const element = STAGE_DATA[index];
+                if(element.id == id){
+                    res = index;
+                }
+            }
+            return res;
+        }
 
         window.onload = function(){
+        // 监听键盘按下事件
+            window.addEventListener('keydown', onKeyDown);
             let params= getUrlParams();
             console.info(params)
             if(params && params.edit_mode){
+                if(params && params.id){
+                    let stageIndex = getStageLevelById(params.id)
+                    stageEditLevel = stageIndex > -1 ? stageIndex : 0;
+                }
                 if(params && params.level){
                     stageEditLevel = parseInt( params.level );
                 }
@@ -952,6 +962,9 @@
                 stageLevel = level ? parseInt(level) : 0;
                 if(params && (params.level || params.level == '0')){
                     stageLevel = parseInt( params.level );
+                }
+                if(params && params.id){
+                    stageLevel = getStageLevelById(params.id) > -1 ? getStageLevelById(params.id) : 0;
                 }
                 if(params && params.view_mode){
                     isViewMode = true;
